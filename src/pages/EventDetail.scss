@@ -1,0 +1,55 @@
+.event-detail {
+  padding: 1.2rem;
+
+  &__tag {
+    display: inline-block;
+    background: #ff7c4d;
+    color: #000;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  &__meta {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 0.2rem;
+  }
+
+  &__body {
+    font-size: 0.95rem;
+    color: #ddd;
+    line-height: 1.5;
+    margin: 0.8rem 0 1.2rem;
+  }
+
+  &__button {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    border: none;
+    background: #3ddc84;
+    color: #000;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.15s;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+  }
+}

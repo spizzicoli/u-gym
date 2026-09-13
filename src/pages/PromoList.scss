@@ -1,0 +1,59 @@
+.promo-list {
+  padding: 1.2rem;
+
+  .promo-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .promo-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .promo-card {
+    background: #1a1c1f;
+    padding: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid #222;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    &__tag {
+      background: #3ddc84;
+      color: #000;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    &__date {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    &__title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    &__desc {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  }
+}

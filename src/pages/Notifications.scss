@@ -1,0 +1,53 @@
+.notifications-page {
+  padding: 1.2rem;
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+.notification-item {
+  background: #1a1c1f;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  border: 1px solid #222;
+  cursor: pointer;
+  transition: 0.15s;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    color: #aaa;
+  }
+
+  &__type {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  &__body {
+    font-size: 0.9rem;
+    color: #bbb;
+  }
+}

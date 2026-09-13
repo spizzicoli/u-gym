@@ -1,0 +1,115 @@
+-- ============================================
+-- U-GYM — Script SQL per Supabase
+-- Vai su Supabase → SQL Editor → incolla tutto
+-- ============================================
+
+-- Tabella Palestre
+create table if not exists gyms (
+  id bigint primary key generated always as identity,
+  name text not null,
+  address text not null,
+  distance text,
+  open boolean default true,
+  hours text default '06:00 – 22:00',
+  members integer default 0,
+  created_at timestamptz default now()
+);
+
+-- Tabella Giorni della Scheda
+create table if not exists scheda_days (
+  id bigint primary key generated always as identity,
+  day text not null,
+  sort_order integer default 0
+);
+
+-- Tabella Esercizi
+create table if not exists exercises (
+  id bigint primary key generated always as identity,
+  scheda_day_id bigint references scheda_days(id) on delete cascade,
+  name text not null,
+  sets text not null,
+  weight text,
+  muscle text,
+  gif_url text,
+  sort_order integer default 0
+);
+
+-- Tabella Corsi
+create table if not exists corsi (
+  id bigint primary key generated always as identity,
+  name text not null,
+  coach text not null,
+  schedule text not null,
+  duration text not null,
+  spots integer default 0,
+  max_spots integer default 10,
+  price numeric(10,2) not null,
+  tag text,
+  tag_color text default '#3ddc84',
+  description text,
+  enrolled boolean default false,
+  created_at timestamptz default now()
+);
+
+-- Tabella Affluenza (dati per il grafico home)
+create table if not exists occupancy (
+  id bigint primary key generated always as identity,
+  gym_id bigint references gyms(id) on delete cascade,
+  hour integer not null check (hour >= 0 and hour <= 23),
+  percentage integer not null check (percentage >= 0 and percentage <= 100)
+);
+
+-- ============================================
+-- DATI DI ESEMPIO — puoi modificarli dal Table Editor
+-- ============================================
+
+insert into gyms (name, address, distance, open, hours, members) values
+  ('U-GYM Viareggio', 'Via Aurelia 120, Viareggio (LU)', '0.8 km', true, '06:00 – 22:00', 320),
+  ('U-GYM Pietrasanta', 'Via Oberdan 44, Pietrasanta (LU)', '6.2 km', true, '06:30 – 22:00', 210),
+  ('U-GYM Lucca', 'Via Romana 88, Lucca (LU)', '18 km', false, '07:00 – 21:30', 450),
+  ('U-GYM Pisa', 'Via Bonanno 12, Pisa (PI)', '28 km', true, '06:00 – 23:00', 580);
+
+insert into scheda_days (day, sort_order) values
+  ('Lunedì — Push', 1),
+  ('Mercoledì — Pull', 2),
+  ('Venerdì — Legs', 3);
+
+insert into exercises (scheda_day_id, name, sets, weight, muscle, gif_url, sort_order) values
+  (1, 'Panca Piana con Bilanciere', '4×8', '80 kg', 'Petto', 'https://media.giphy.com/media/l0HlAgJTGqMhMiOvS/giphy.gif', 1),
+  (1, 'Military Press', '3×10', '50 kg', 'Spalle', 'https://media.giphy.com/media/xT9DPIBYf0pAviBLzO/giphy.gif', 2),
+  (1, 'Alzate Laterali', '3×15', '10 kg', 'Spalle', 'https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif', 3),
+  (1, 'French Press', '3×12', '30 kg', 'Tricipiti', 'https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif', 4),
+  (1, 'Dip alla Parallela', '3×Failure', null, 'Tricipiti', 'https://media.giphy.com/media/3o7TKrdNS58URTiwk0/giphy.gif', 5),
+  (2, 'Trazioni alla Sbarra', '4×8', null, 'Dorsali', 'https://media.giphy.com/media/26BGIqWh2R1fi6JDa/giphy.gif', 1),
+  (2, 'Rematore con Bilanciere', '4×10', '70 kg', 'Dorsali', 'https://media.giphy.com/media/3o6Zt4hBHKwkMi2g3K/giphy.gif', 2),
+  (2, 'Curl con Bilanciere', '3×12', '35 kg', 'Bicipiti', 'https://media.giphy.com/media/WsKYGGYEBBQBi/giphy.gif', 3),
+  (2, 'Face Pull', '3×15', '20 kg', 'Deltoidi posteriori', 'https://media.giphy.com/media/xT9DPLzbSB2t0ZTQHK/giphy.gif', 4),
+  (3, 'Squat con Bilanciere', '4×8', '100 kg', 'Quadricipiti', 'https://media.giphy.com/media/xT9DPBiKM1fmtOXpS0/giphy.gif', 1),
+  (3, 'Romanian Deadlift', '3×10', '80 kg', 'Femorali', 'https://media.giphy.com/media/3o6Zt6MTB6G3s4MFEU/giphy.gif', 2),
+  (3, 'Leg Press', '4×12', '160 kg', 'Quadricipiti', 'https://media.giphy.com/media/kdiLau77NE2ieviBIK/giphy.gif', 3),
+  (3, 'Calf Raise in Piedi', '4×20', '60 kg', 'Polpacci', 'https://media.giphy.com/media/26ufcVAp3AiKF6UnC/giphy.gif', 4);
+
+insert into corsi (name, coach, schedule, duration, spots, max_spots, price, tag, tag_color, description, enrolled) values
+  ('CrossFit Advanced', 'Marco Ferretti', 'Lun / Mer / Ven — 07:00', '60 min', 3, 12, 49, 'Intenso', '#ff7c4d', 'Allenamento funzionale ad alta intensità per atleti con esperienza. Combina cardio, forza e mobilità in sessioni esplosive.', false),
+  ('Pilates Core', 'Sofia Brunetti', 'Mar / Gio — 09:00', '50 min', 6, 10, 35, 'Popolare', '#3ddc84', 'Rinforza il core e migliora la postura con esercizi mirati. Adatto a tutti i livelli, consigliato anche in recupero.', true),
+  ('HIIT Cardio Blast', 'Luca Mancini', 'Lun / Mer / Ven — 18:30', '45 min', 0, 15, 39, 'Esaurito', '#ff4d4f', 'Sessioni di interval training brevi ma devastanti per bruciare calorie e migliorare la resistenza cardiovascolare.', false),
+  ('Yoga Flow', 'Elena Conti', 'Mar / Sab — 08:00', '60 min', 8, 12, 30, 'Rilassante', '#a78bfa', 'Pratica di yoga dinamico che unisce forza, flessibilità e mindfulness. Perfetto per recupero attivo e benessere mentale.', false),
+  ('Powerlifting Club', 'Andrea Rossi', 'Mar / Gio / Sab — 17:00', '90 min', 4, 8, 59, 'Forza', '#faad14', 'Programma dedicato alle tre competizioni: squat, panca e stacco. Tecnica, periodizzazione e massimali.', false);
+
+insert into occupancy (gym_id, hour, percentage) values
+  (1,6,20),(1,7,55),(1,8,80),(1,9,70),(1,10,45),(1,11,35),
+  (1,12,25),(1,13,30),(1,14,50),(1,15,60),(1,16,75),(1,17,90),
+  (1,18,95),(1,19,85),(1,20,65),(1,21,40);
+
+-- Abilita accesso pubblico in lettura (RLS)
+alter table gyms enable row level security;
+alter table scheda_days enable row level security;
+alter table exercises enable row level security;
+alter table corsi enable row level security;
+alter table occupancy enable row level security;
+
+create policy "Public read gyms" on gyms for select using (true);
+create policy "Public read scheda_days" on scheda_days for select using (true);
+create policy "Public read exercises" on exercises for select using (true);
+create policy "Public read corsi" on corsi for select using (true);
+create policy "Public read occupancy" on occupancy for select using (true);

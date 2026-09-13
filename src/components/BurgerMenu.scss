@@ -1,0 +1,97 @@
+.burger-button {
+  position: fixed;
+  top: $spacing-lg;
+  right: 0.9rem;
+  z-index: 40;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: none;
+  background: #1a1c1f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.burger-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.burger-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  max-width: 260px;
+  height: 100%;
+  background: #111214;
+  border-right: 1px solid #222;
+  padding: 1.2rem 1rem;
+  transform: translateX(-100%);
+  transition: 0.2s;
+
+  .burger-overlay.open & {
+    transform: translateX(0);
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+  }
+}
+
+.burger-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  &__item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.4rem;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.95rem;
+    transition: 0.15s;
+
+    &.active {
+      background: #1a1c1f;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3ddc84;
+  }
+
+  &__label {
+    flex: 1;
+  }
+}

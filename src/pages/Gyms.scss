@@ -1,0 +1,219 @@
+ 
+
+.gyms-page {
+  min-height: 100dvh;
+  background: $color-bg;
+  padding: $spacing-lg $spacing-md;
+  padding-bottom: 100px;
+  overflow-y: auto;
+}
+
+.gyms-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xl;
+  padding-top: env(safe-area-inset-top, 0);
+
+  &__logo {
+    width: 52px;
+    height: 52px;
+    background: $color-green;
+    color: $color-bg;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-display;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    box-shadow: $shadow-green;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    color: $color-text;
+    line-height: 1.1;
+  }
+
+  &__sub {
+    color: $color-text-muted;
+    font-size: 0.82rem;
+    margin-top: 4px;
+  }
+}
+
+.gyms-search {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.gyms-locate-btn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  background: $color-green-glow;
+  border: 1px solid rgba($color-green, 0.3);
+  border-radius: $radius-sm;
+  color: $color-green;
+  font-family: $font-body;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover { background: rgba($color-green, 0.2); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  svg { font-size: 1.1rem; }
+}
+
+.gyms-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.gym-card {
+  width: 100%;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  cursor: pointer;
+  text-align: left;
+  transition: all $transition-fast;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    border-color: rgba($color-green, 0.4);
+    transform: translateX(2px);
+  }
+
+  &--selected {
+    border-color: $color-green;
+    background: linear-gradient(135deg, rgba($color-green, 0.05), $color-surface);
+    box-shadow: $shadow-green;
+  }
+
+  &--current {
+    &::before {
+      content: 'ATTUALE';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-family: $font-mono;
+      font-size: 0.6rem;
+      color: $color-green;
+      background: $color-green-glow;
+      border: 1px solid rgba($color-green, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__info { flex: 1; }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 1.15rem;
+    color: $color-text;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+  }
+
+  &__address {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: $color-text-muted;
+    font-size: 0.8rem;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  &__distance {
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    color: $color-text-muted;
+  }
+
+  &__status {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    
+    &.open {
+      color: $color-green;
+      background: $color-green-glow;
+    }
+    
+    &.closed {
+      color: $color-text-dim;
+      background: rgba($color-text-dim, 0.15);
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid $color-border;
+    padding-top: $spacing-sm;
+    margin-top: $spacing-sm;
+  }
+
+  &__hours {
+    font-family: $font-mono;
+    font-size: 0.78rem;
+    color: $color-text-muted;
+  }
+
+  &__members {
+    font-size: 0.78rem;
+    color: $color-text-dim;
+  }
+
+  &__check {
+    position: absolute;
+    top: 50%;
+    right: $spacing-md;
+    transform: translateY(-50%);
+    color: $color-green;
+    font-size: 1.4rem;
+    display: flex;
+  }
+}
+
+.gyms-confirm {
+  position: fixed;
+  bottom: $nav-height + 10px;
+  left: 0;
+  right: 0;
+  padding: $spacing-md;
+  padding-bottom: calc(#{$spacing-md} + #{$safe-bottom});
+  background: linear-gradient(to top, $color-bg 60%, transparent);
+  
+  .btn-primary { font-size: 1rem; }
+}

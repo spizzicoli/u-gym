@@ -1,0 +1,237 @@
+ 
+
+.corso-detail { background: $color-bg; }
+
+.detail-back {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  background: none;
+  border: none;
+  color: $color-text-muted;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-bottom: $spacing-lg;
+  padding: 0;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-green; }
+}
+
+.detail-header {
+  margin-bottom: $spacing-lg;
+}
+
+.detail-tag {
+  font-family: $font-mono;
+  font-size: 0.65rem;
+  color: var(--tag-color);
+  background: color-mix(in srgb, var(--tag-color) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tag-color) 30%, transparent);
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: $spacing-sm;
+}
+
+.detail-title {
+  font-family: $font-display;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+}
+
+.detail-desc {
+  color: $color-text-muted;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.detail-meta {
+  margin-bottom: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  &-row {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-md;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid rgba($color-border, 0.5);
+
+    &:last-child { border-bottom: none; }
+  }
+
+  &-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $color-text-dim;
+  }
+
+  &-val {
+    font-size: 0.9rem;
+    color: $color-text;
+    font-weight: 500;
+  }
+}
+
+.detail-spots {
+  margin-bottom: $spacing-lg;
+  
+  p {
+    font-size: 0.875rem;
+    color: $color-text-muted;
+    margin-bottom: $spacing-sm;
+    
+    strong { font-family: $font-mono; }
+  }
+
+  .corso-spots-bar {
+    height: 6px;
+    background: $color-surface;
+    border-radius: 3px;
+
+    &__fill {
+      height: 100%;
+      background: $color-green;
+      border-radius: 3px;
+    }
+  }
+}
+
+.detail-enrolled {
+  text-align: center;
+  padding: $spacing-md;
+  background: $color-green-glow;
+  border: 1px solid rgba($color-green, 0.3);
+  border-radius: $radius-sm;
+  color: $color-green;
+  font-weight: 600;
+}
+
+.detail-full {
+  text-align: center;
+  padding: $spacing-md;
+  background: rgba($color-warning, 0.1);
+  border: 1px solid rgba($color-warning, 0.3);
+  border-radius: $radius-sm;
+  color: $color-warning;
+  font-size: 0.875rem;
+}
+
+// Payment
+.payment-section { animation: slideUp 0.3s ease; }
+
+.payment-title {
+  font-family: $font-display;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+}
+
+.payment-secure {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: 0.78rem;
+  color: $color-green;
+  margin-bottom: $spacing-lg;
+}
+
+.payment-summary {
+  margin-bottom: $spacing-lg;
+}
+
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-sm 0;
+  font-size: 0.875rem;
+  color: $color-text-muted;
+  border-bottom: 1px solid rgba($color-border, 0.5);
+
+  &:last-child { border-bottom: none; }
+
+  span:last-child { color: $color-text; font-weight: 500; }
+
+  &.total {
+    color: $color-text;
+    font-weight: 600;
+    font-family: $font-mono;
+    
+    span:last-child { color: $color-green; font-size: 1.1rem; }
+  }
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+  
+  .MuiInputBase-root { background: $color-surface-2; }
+}
+
+.payment-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+}
+
+.payment-disclaimer {
+  font-size: 0.72rem;
+  color: $color-text-dim;
+  line-height: 1.5;
+  margin-bottom: $spacing-md;
+  
+  a { color: $color-green; text-decoration: none; }
+}
+
+// Confirm
+.detail-confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: $spacing-2xl;
+  gap: $spacing-md;
+  animation: slideUp 0.4s ease;
+}
+
+.confirm-icon {
+  width: 80px;
+  height: 80px;
+  background: $color-green;
+  color: $color-bg;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  box-shadow: $shadow-green;
+  margin-bottom: $spacing-md;
+}
+
+.confirm-title {
+  font-family: $font-display;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  color: $color-text;
+}
+
+.confirm-sub {
+  color: $color-text-muted;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: $spacing-md;
+}
+
+.confirm-summary {
+  width: 100%;
+  margin-bottom: $spacing-lg;
+}

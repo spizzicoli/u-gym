@@ -1,0 +1,179 @@
+ 
+
+.badge-page { background: $color-bg; }
+
+.badge-card {
+  background: linear-gradient(135deg, $color-surface 0%, rgba($color-green, 0.05) 100%);
+  border: 1px solid rgba($color-green, 0.3);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-green;
+  animation: slideUp 0.4s ease;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__logo {
+    width: 44px;
+    height: 44px;
+    background: $color-green;
+    color: $color-bg;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-display;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: $shadow-green;
+  }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    color: $color-text;
+  }
+
+  &__email {
+    font-size: 0.78rem;
+    color: $color-text-muted;
+  }
+
+  &__status {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    color: $color-green;
+    font-weight: 600;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid $color-border;
+  }
+}
+
+.badge-qr-wrap {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: $spacing-lg 0;
+}
+
+.badge-qr {
+  position: relative;
+  padding: $spacing-lg;
+  background: rgba($color-bg, 0.8);
+  border-radius: $radius-md;
+  border: 1px solid rgba($color-green, 0.2);
+
+  // Corner accents
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: $color-green;
+    border-style: solid;
+  }
+
+  &::before {
+    top: 8px;
+    left: 8px;
+    border-width: 2px 0 0 2px;
+    border-radius: 4px 0 0 0;
+  }
+
+  &::after {
+    bottom: 8px;
+    right: 8px;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 4px 0;
+  }
+}
+
+.badge-qr__scan-line {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $color-green, transparent);
+  top: 50%;
+  animation: scan 2.5s ease-in-out infinite;
+  border-radius: 2px;
+  box-shadow: 0 0 8px $color-green;
+}
+
+@keyframes scan {
+  0%, 100% { top: 20%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  50% { top: 80%; }
+}
+
+.badge-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: 0.82rem;
+  color: $color-text-muted;
+}
+
+.badge-refresh {
+  text-align: center;
+  font-size: 0.7rem;
+  color: $color-text-dim;
+  margin-top: $spacing-sm;
+  font-style: italic;
+}
+
+.badge-membership {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.2rem;
+    letter-spacing: 0.04em;
+    color: $color-text;
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid rgba($color-border, 0.5);
+    font-size: 0.875rem;
+    color: $color-text-muted;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  &__val {
+    color: $color-text;
+    font-weight: 500;
+    font-family: $font-mono;
+    font-size: 0.82rem;
+
+    &--green { color: $color-green; }
+  }
+}

@@ -1,0 +1,235 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg:          #{$color-bg};
+  --color-surface:     #{$color-surface};
+  --color-surface-2:   #{$color-surface-2};
+  --color-border:      #{$color-border};
+  --color-green:       #{$color-green};
+  --color-green-dark:  #{$color-green-dark};
+  --color-green-glow:  #{$color-green-glow};
+  --color-text:        #{$color-text};
+  --color-text-muted:  #{$color-text-muted};
+  --color-text-dim:    #{$color-text-dim};
+  --color-danger:      #{$color-danger};
+  --nav-height:        #{$nav-height};
+}
+
+html, body {
+  height: 100%;
+  background: $color-bg;
+  color: $color-text;
+  font-family: $font-body;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: $color-border; border-radius: 4px; }
+
+/* Utilities */
+.page-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-lg $spacing-md;
+  padding-bottom: calc(#{$nav-height} + #{$spacing-xl} + #{$safe-bottom});
+}
+
+.page-title {
+  font-family: $font-display;
+  font-size: 2.4rem;
+  letter-spacing: 0.04em;
+  color: $color-text;
+  margin-bottom: $spacing-lg;
+  
+  span {
+    color: $color-green;
+  }
+}
+
+.card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  
+  &--highlight {
+    border-color: rgba($color-green, 0.3);
+    box-shadow: $shadow-green;
+  }
+}
+
+.btn-primary {
+  width: 100%;
+  padding: $spacing-md $spacing-lg;
+  background: $color-green;
+  color: $color-bg;
+  border: none;
+  border-radius: $radius-sm;
+  font-family: $font-display;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background: $color-green-dark;
+    transform: translateY(-1px);
+    box-shadow: $shadow-green;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn-outline {
+  width: 100%;
+  padding: $spacing-md $spacing-lg;
+  background: transparent;
+  color: $color-green;
+  border: 1px solid $color-green;
+  border-radius: $radius-sm;
+  font-family: $font-display;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  &:hover {
+    background: $color-green-glow;
+  }
+}
+
+// Sidebar overlay
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+
+.sidebar-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 92vw);
+  background: $color-surface;
+  border-left: 1px solid $color-border;
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow-y: auto;
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-lg;
+    border-bottom: 1px solid $color-border;
+    position: sticky;
+    top: 0;
+    background: $color-surface;
+    z-index: 1;
+  }
+  
+  &__title {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    color: $color-text;
+    letter-spacing: 0.05em;
+  }
+  
+  &__close {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $color-surface-2;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    color: $color-text-muted;
+    transition: all $transition-fast;
+    
+    &:hover {
+      color: $color-text;
+      border-color: $color-green;
+    }
+  }
+  
+  &__content {
+    flex: 1;
+    padding: $spacing-lg;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+// MUI overrides
+.MuiOutlinedInput-root {
+  color: $color-text !important;
+  
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $color-border !important;
+  }
+  
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: $color-green !important;
+  }
+  
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: $color-green !important;
+  }
+  
+  input { color: $color-text !important; }
+}
+
+.MuiInputLabel-root {
+  color: $color-text-muted !important;
+  
+  &.Mui-focused { color: $color-green !important; }
+}
+
+.MuiCheckbox-root {
+  color: $color-border !important;
+  
+  &.Mui-checked { color: $color-green !important; }
+}

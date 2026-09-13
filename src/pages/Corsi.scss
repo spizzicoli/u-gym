@@ -1,0 +1,132 @@
+ 
+
+.corsi-page { background: $color-bg; }
+
+.corsi-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.corso-card {
+  width: 100%;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  text-align: left;
+  cursor: pointer;
+  transition: all $transition-fast;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    border-color: rgba($color-green, 0.35);
+    transform: translateY(-2px);
+    box-shadow: $shadow-card;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 1.2rem;
+    letter-spacing: 0.04em;
+    color: $color-text;
+  }
+
+  &__tag {
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--tag-color);
+    background: color-mix(in srgb, var(--tag-color) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--tag-color) 30%, transparent);
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__desc {
+    color: $color-text-muted;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-bottom: $spacing-md;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+  }
+
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78rem;
+    color: $color-text-muted;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-md;
+  }
+
+  &__spots {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__price {
+    font-family: $font-display;
+    font-size: 1.2rem;
+    color: $color-green;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  &__enrolled {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: $color-green;
+    background: $color-green-glow;
+    border: 1px solid rgba($color-green, 0.3);
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+}
+
+.corso-spots-bar {
+  height: 4px;
+  background: $color-surface-2;
+  border-radius: 2px;
+  overflow: hidden;
+
+  &__fill {
+    height: 100%;
+    background: $color-green;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+}
+
+.corso-spots-text {
+  font-size: 0.72rem;
+  color: $color-text-muted;
+}

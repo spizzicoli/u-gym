@@ -1,0 +1,48 @@
+// ===== U-GYM DESIGN SYSTEM =====
+
+// Colors
+$color-bg:           #111214;
+$color-surface:      #1a1c1f;
+$color-surface-2:    #222528;
+$color-border:       #2a2d32;
+$color-green:        #3ddc84;
+$color-green-dark:   #2bb56a;
+$color-green-glow:   rgba(61, 220, 132, 0.15);
+$color-text:         #f0f0f0;
+$color-text-muted:   #8a8f99;
+$color-text-dim:     #4a4f5a;
+$color-danger:       #ff4d4f;
+$color-warning:      #faad14;
+
+// Typography
+$font-display:       'Bebas Neue', sans-serif;
+$font-body:          'Inter', sans-serif;
+$font-mono:          'Space Mono', monospace;
+
+// Spacing
+$spacing-xs:   4px;
+$spacing-sm:   8px;
+$spacing-md:   16px;
+$spacing-lg:   24px;
+$spacing-xl:   32px;
+$spacing-2xl:  48px;
+$spacing-3xl:  70px;
+
+// Border radius
+$radius-sm:   6px;
+$radius-md:   12px;
+$radius-lg:   20px;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-green: 0 0 20px rgba(61, 220, 132, 0.2);
+$shadow-card:  0 4px 24px rgba(0,0,0,0.4);
+
+// Transitions
+$transition-fast:   0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow:   0.4s ease;
+
+// Bottom nav height
+$nav-height: 64px;
+$safe-bottom: env(safe-area-inset-bottom, 0px);
