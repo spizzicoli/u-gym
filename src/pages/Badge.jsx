@@ -3,12 +3,13 @@ import { QRCodeSVG } from 'qrcode.react';
 import QrCode2Icon from '@mui/icons-material/QrCode2Rounded';
 import LocationOnIcon from '@mui/icons-material/LocationOnRounded';
 import CheckCircleIcon from '@mui/icons-material/CheckCircleRounded';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenterRounded';
 import './Badge.scss';
 
 export default function Badge() {
   const { user, selectedGym } = useApp();
   const qrData = JSON.stringify({
-    userId: user?.id || 'gt-user',
+    userId: user?.id || 'u-gym-user',
     username: user?.username,
     gym: selectedGym?.id || 1,
     ts: Date.now(),
@@ -20,7 +21,7 @@ export default function Badge() {
 
       <div className="badge-card">
         <div className="badge-card__header">
-          <div className="badge-card__logo">GT</div>
+          <div className="badge-card__logo"><FitnessCenterIcon /></div>
           <div>
             <h2 className="badge-card__name">{user?.username || 'Atleta'}</h2>
             <p className="badge-card__email">{user?.email}</p>

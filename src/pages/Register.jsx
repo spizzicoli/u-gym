@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenterRounded';
 import { useApp } from '../context/AppContext';
 import { registerUser } from '../lib/api';
 import './Auth.scss';
@@ -78,8 +79,8 @@ export default function Register() {
 
       <div className="auth-container">
         <div className="auth-logo">
-          <div className="auth-logo__icon">GT</div>
-          <span className="auth-logo__name">GREEN<span>THEORY</span></span>
+          <div className="auth-logo__icon"><FitnessCenterIcon /></div>
+          <span className="auth-logo__name">U-<span>GYM</span></span>
         </div>
 
         <div className="auth-card">

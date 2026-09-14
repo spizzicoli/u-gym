@@ -61,11 +61,11 @@ function ExerciseSidebar({ exercise, onClose }) {
 
 function NotesSidebar({ exercise, onClose }) {
   const [note, setNote] = useState(() =>
-    localStorage.getItem(`gt_note_${exercise.id}`) || ''
+    localStorage.getItem(`u_gym_note_${exercise.id}`) || ''
   );
 
   const save = () => {
-    localStorage.setItem(`gt_note_${exercise.id}`, note);
+    localStorage.setItem(`u_gym_note_${exercise.id}`, note);
     onClose();
   };
 

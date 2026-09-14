@@ -12,51 +12,51 @@ export function AppProvider({ children }) {
     return auth.onAuthStateChanged((firebaseUser) => {
       if (!firebaseUser) {
         setUser(null);
-        localStorage.removeItem('gt_user');
+        localStorage.removeItem('u_gym_user');
         setAuthReady(true);
         return;
       }
 
-      const saved = localStorage.getItem('gt_user');
+      const saved = localStorage.getItem('u_gym_user');
       const savedUser = saved ? JSON.parse(saved) : null;
       const nextUser = savedUser?.id === firebaseUser.uid
         ? savedUser
         : { id: firebaseUser.uid, email: firebaseUser.email, role: 'client', trainer_id: null };
 
       setUser(nextUser);
-      localStorage.setItem('gt_user', JSON.stringify(nextUser));
+      localStorage.setItem('u_gym_user', JSON.stringify(nextUser));
       setAuthReady(true);
     });
   }, []);
 
   const [selectedGym, setSelectedGym] = useState(() => {
-    const saved = localStorage.getItem('gt_gym');
+    const saved = localStorage.getItem('u_gym_gym');
     return saved ? JSON.parse(saved) : null;
   });
 
   const [gymSelected, setGymSelected] = useState(() => {
-    return localStorage.getItem('gt_gym_selected') === 'true';
+    return localStorage.getItem('u_gym_gym_selected') === 'true';
   });
 
   // 🔥 NON sovrascrivere l'id
   const login = (userData) => {
     setUser(userData);
-    localStorage.setItem('gt_user', JSON.stringify(userData));
+    localStorage.setItem('u_gym_user', JSON.stringify(userData));
   };
 
   const logout = async () => {
     await logoutUser();
     setUser(null);
     setGymSelected(false);
-    localStorage.removeItem('gt_user');
-    localStorage.removeItem('gt_gym_selected');
+    localStorage.removeItem('u_gym_user');
+    localStorage.removeItem('u_gym_gym_selected');
   };
 
   const selectGym = (gym) => {
     setSelectedGym(gym);
     setGymSelected(true);
-    localStorage.setItem('gt_gym', JSON.stringify(gym));
-    localStorage.setItem('gt_gym_selected', 'true');
+    localStorage.setItem('u_gym_gym', JSON.stringify(gym));
+    localStorage.setItem('u_gym_gym_selected', 'true');
   };
 
   return (

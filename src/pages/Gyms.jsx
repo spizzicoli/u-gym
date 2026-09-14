@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/SearchRounded';
 import LocationOnIcon from '@mui/icons-material/LocationOnRounded';
 import MyLocationIcon from '@mui/icons-material/MyLocationRounded';
 import CheckCircleIcon from '@mui/icons-material/CheckCircleRounded';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenterRounded';
 import { useApp } from '../context/AppContext';
 import { useData } from '../hooks/useData';
 import { fetchGyms } from '../lib/api';
@@ -42,7 +43,7 @@ export default function Gyms({ firstTime }) {
   return (
     <div className="gyms-page">
       <div className="gyms-header">
-        <div className="gyms-header__logo">GT</div>
+        <div className="gyms-header__logo"><FitnessCenterIcon /></div>
         <div>
           <h1 className="gyms-header__title">
             {firstTime ? 'Scegli la tua Palestra' : 'Le tue Palestre'}
