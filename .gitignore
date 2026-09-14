@@ -1,7 +1,5 @@
 node_modules
 dist
-.env.local
-.env.*.local
 *.log
 android/.gradle/
 android/build/
