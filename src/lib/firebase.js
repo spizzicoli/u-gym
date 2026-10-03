@@ -1,5 +1,5 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { browserLocalPersistence, getAuth, initializeAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -21,6 +21,15 @@ if (missingConfig.length > 0) {
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
+function getConfiguredAuth() {
+  try {
+    return initializeAuth(app, { persistence: browserLocalPersistence });
+  } catch (error) {
+    if (error?.code !== 'auth/already-initialized') throw error;
+    return getAuth(app);
+  }
+}
+
+export const auth = getConfiguredAuth();
 export const db = getFirestore(app);
 export default app;

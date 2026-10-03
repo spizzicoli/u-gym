@@ -65,7 +65,7 @@ async function diagnoseFirebaseAuthConnection() {
       return 'Il servizio Firebase risponde, ma il provider Email/Password non è abilitato in Firebase Authentication.';
     }
     if (response.status === 400 && firebaseCode === 'INVALID_LOGIN_CREDENTIALS') {
-      return 'L’iPhone raggiunge Firebase Auth e la configurazione è accettata. Controlla email e password oppure il provider Email/Password.';
+      return 'Test di rete superato: l’iPhone raggiunge Firebase Auth e la configurazione è accettata. Questo test usa credenziali di prova, quindi non verifica la password del tuo account.';
     }
     return `L’iPhone raggiunge Firebase Auth, ma il servizio ha risposto con HTTP ${response.status}${firebaseCode ? ` (${firebaseCode})` : ''}.`;
   } catch (error) {
