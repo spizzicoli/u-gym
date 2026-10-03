@@ -25,12 +25,57 @@ const AUTH_REQUEST_TIMEOUT_MS = 20000;
 function withAuthTimeout(promise) {
   let timeoutId;
   const timeout = new Promise((_, reject) => {
-    timeoutId = setTimeout(() => reject(new Error(
-      'Firebase non risponde. Controlla la connessione e riprova.'
-    )), AUTH_REQUEST_TIMEOUT_MS);
+    timeoutId = setTimeout(() => {
+      const error = new Error('La richiesta di autenticazione è scaduta.');
+      error.code = 'auth/request-timeout';
+      reject(error);
+    }, AUTH_REQUEST_TIMEOUT_MS);
   });
 
   return Promise.race([promise, timeout]).finally(() => clearTimeout(timeoutId));
+}
+
+async function diagnoseFirebaseAuthConnection() {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+  try {
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${import.meta.env.VITE_FIREBASE_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: 'diagnostic-invalid@example.invalid',
+          password: 'diagnostic-invalid-password',
+          returnSecureToken: true,
+        }),
+        signal: controller.signal,
+      }
+    );
+    const payload = await response.json();
+    const firebaseCode = payload?.error?.message;
+
+    if (firebaseCode === 'API_KEY_HTTP_REFERRER_BLOCKED') {
+      return 'Firebase Auth blocca questa app: rimuovi la restrizione HTTP referrer dalla chiave API Firebase in Google Cloud Console.';
+    }
+    if (firebaseCode === 'API_KEY_SERVICE_BLOCKED' || firebaseCode === 'API_KEY_INVALID') {
+      return 'Firebase Auth rifiuta la chiave API o il servizio Identity Toolkit per questo progetto.';
+    }
+    if (firebaseCode === 'OPERATION_NOT_ALLOWED') {
+      return 'Il servizio Firebase risponde, ma il provider Email/Password non è abilitato in Firebase Authentication.';
+    }
+    if (response.status === 400 && firebaseCode === 'INVALID_LOGIN_CREDENTIALS') {
+      return 'L’iPhone raggiunge Firebase Auth e la configurazione è accettata. Controlla email e password oppure il provider Email/Password.';
+    }
+    return `L’iPhone raggiunge Firebase Auth, ma il servizio ha risposto con HTTP ${response.status}${firebaseCode ? ` (${firebaseCode})` : ''}.`;
+  } catch (error) {
+    if (error?.name === 'AbortError') {
+      return 'Anche il controllo diretto da iPhone è scaduto. Prova un’altra rete (ad esempio hotspot) e verifica eventuali filtri DNS/VPN; l’endpoint non è raggiungibile dal WebView.';
+    }
+    return 'Il WebView iOS non riesce a contattare Firebase Auth. Verifica VPN, DNS privato o filtri di rete e prova tramite hotspot.';
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 // Keep reads bounded. The old helper could download an entire collection on every screen.
@@ -79,7 +124,15 @@ export async function loginUser(credential, password) {
     if (snapshot.empty) throw new Error('Credenziali non valide');
     email = snapshot.docs[0].data().email;
   }
-  const result = await withAuthTimeout(signInWithEmailAndPassword(auth, email, password));
+  let result;
+  try {
+    result = await withAuthTimeout(signInWithEmailAndPassword(auth, email, password));
+  } catch (error) {
+    if (error?.code === 'auth/request-timeout' || error?.code === 'auth/network-request-failed') {
+      throw new Error(await diagnoseFirebaseAuthConnection());
+    }
+    throw error;
+  }
   return userData({
     email: result.user.email,
     username: result.user.displayName || result.user.email?.split('@')[0] || 'Atleta',
