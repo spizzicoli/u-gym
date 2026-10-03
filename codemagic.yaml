@@ -15,6 +15,8 @@ workflows:
         script: |
           npx cap add ios
           npx cap sync ios
+          npx capacitor-assets generate --ios --iconBackgroundColor '#111214' --splashBackgroundColor '#111214'
+          test -f ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json
           cd ios/App
           pod install
       - name: Build unsigned iOS app
