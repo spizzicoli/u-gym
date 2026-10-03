@@ -35,6 +35,14 @@ function hasValidCoordinates(gym) {
     && gym.longitude <= 180;
 }
 
+function normalizeSearchText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLocaleLowerCase('it');
+}
+
 export default function Gyms({ firstTime }) {
   const navigate = useNavigate();
   const { selectGym, selectedGym } = useApp();
@@ -58,9 +66,10 @@ export default function Gyms({ firstTime }) {
     } finally { setLocating(false); }
   };
 
+  const search = normalizeSearchText(query);
   const filtered = (gyms || []).filter(g =>
-    String(g.name || '').toLowerCase().includes(query.toLowerCase()) ||
-    String(g.address || '').toLowerCase().includes(query.toLowerCase())
+    normalizeSearchText(g.name).includes(search)
+    || normalizeSearchText(g.address).includes(search)
   );
 
   const sortedGyms = [...filtered].map(g => {
@@ -121,7 +130,7 @@ export default function Gyms({ firstTime }) {
       </div>
 
       {loading && (
-        <div className="gyms-loading">
+        <div className="gyms-loading" role="status">
           <CircularProgress sx={{ color: 'var(--color-green)' }} />
           <p>Caricamento palestre...</p>
         </div>
@@ -178,6 +187,11 @@ export default function Gyms({ firstTime }) {
             )}
           </button>
         ))}
+        {!loading && !error && sortedGyms.length === 0 && (
+          <p className="gyms-empty">
+            {search ? 'Nessuna palestra trovata. Prova con un altro nome o città.' : 'Nessuna palestra disponibile.'}
+          </p>
+        )}
       </div>
 
       {chosen && (

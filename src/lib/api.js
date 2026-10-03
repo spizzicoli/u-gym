@@ -162,7 +162,21 @@ export async function updateUserProfile(userId, updates) {
 }
 
 export async function fetchGyms() {
-  const gyms = await getCollection('gyms', { sortField: 'name', max: 50 });
+  let timeoutId;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(
+      'Caricamento palestre scaduto. Controlla l’accesso a Firebase e riprova.'
+    )), 15000);
+  });
+  let gyms;
+  try {
+    gyms = await Promise.race([
+      getCollection('gyms', { sortField: 'name', max: 50 }),
+      timeout,
+    ]);
+  } finally {
+    clearTimeout(timeoutId);
+  }
   return gyms.sort((a, b) => String(a.name || '').localeCompare(String(b.name || '')));
 }
 

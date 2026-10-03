@@ -7,6 +7,18 @@ const PushNotifications = registerPlugin('PushNotifications');
 const Calendar = registerPlugin('Calendar');
 const LocalNotifications = registerPlugin('LocalNotifications');
 const isNative = () => Capacitor.isNativePlatform();
+const LOCATION_REQUEST_TIMEOUT_MS = 25000;
+
+function withLocationTimeout(promise) {
+  let timeoutId;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(
+      'Richiesta posizione scaduta. Verifica che i Servizi di localizzazione siano attivi e riprova.'
+    )), LOCATION_REQUEST_TIMEOUT_MS);
+  });
+
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timeoutId));
+}
 
 async function tokenKey(token) {
   const data = new TextEncoder().encode(token);
@@ -49,18 +61,24 @@ export async function setupPushNotifications(userId) {
 
 export async function getCurrentDevicePosition() {
   if (isNative()) {
-    let permissions = await Geolocation.checkPermissions();
-    if (permissions.location !== 'granted') permissions = await Geolocation.requestPermissions();
+    let permissions = await withLocationTimeout(Geolocation.checkPermissions());
+    if (permissions.location !== 'granted') {
+      permissions = await withLocationTimeout(Geolocation.requestPermissions());
+    }
     if (permissions.location !== 'granted') throw new Error('Permesso di posizione negato.');
-    const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true, maximumAge: 30000, timeout: 12000 });
+    const position = await withLocationTimeout(Geolocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      maximumAge: 30000,
+      timeout: 15000,
+    }));
     return { latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy };
   }
   if (!navigator.geolocation) throw new Error('Geolocalizzazione non supportata dal dispositivo.');
-  return new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(
+  return withLocationTimeout(new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(
     ({ coords }) => resolve({ latitude: coords.latitude, longitude: coords.longitude, accuracy: coords.accuracy }),
     error => reject(new Error(error.message || 'Impossibile ottenere la posizione.')),
-    { enableHighAccuracy: true, maximumAge: 30000, timeout: 12000 },
-  ));
+    { enableHighAccuracy: true, maximumAge: 30000, timeout: 15000 },
+  )));
 }
 
 export async function addCalendarReminder({ title, start, end, location = '', description = '' }) {

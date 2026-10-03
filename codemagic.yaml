@@ -17,6 +17,13 @@ workflows:
           npx cap sync ios
           npx capacitor-assets generate --ios --iconBackgroundColor '#111214' --splashBackgroundColor '#111214'
           test -f ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json
+          INFO_PLIST=ios/App/App/Info.plist
+          if /usr/libexec/PlistBuddy -c "Print :NSLocationWhenInUseUsageDescription" "$INFO_PLIST" >/dev/null 2>&1; then
+            /usr/libexec/PlistBuddy -c "Set :NSLocationWhenInUseUsageDescription 'U-GYM usa la posizione per calcolare la distanza dalle palestre.'" "$INFO_PLIST"
+          else
+            /usr/libexec/PlistBuddy -c "Add :NSLocationWhenInUseUsageDescription string 'U-GYM usa la posizione per calcolare la distanza dalle palestre.'" "$INFO_PLIST"
+          fi
+          /usr/libexec/PlistBuddy -c "Print :NSLocationWhenInUseUsageDescription" "$INFO_PLIST"
           cd ios/App
           pod install
       - name: Build unsigned iOS app

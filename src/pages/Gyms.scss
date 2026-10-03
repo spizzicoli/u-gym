@@ -220,6 +220,7 @@
   .btn-primary { font-size: 1rem; pointer-events: auto; position: relative; z-index: 1; }
 }
 .gyms-location-message { margin: 10px 0 4px; padding: 10px 12px; border-radius: 12px; background: var(--rgba-green-0-05); border: 1px solid var(--rgba-green-0-2); color: var(--color-text-muted); font-size: 12px; }
+.gyms-empty { padding: 14px; color: var(--color-text-muted); text-align: center; font-size: 13px; }
 
 
 /* U-Gym brand action: never inherit the previous theme color. */
