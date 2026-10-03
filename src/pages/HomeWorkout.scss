@@ -59,7 +59,7 @@
 .home-reminder__title svg { color:var(--accent,var(--color-green)); }
 .home-reminder__title strong,.home-reminder__title small { display:block; }
 .home-reminder__title small { color:var(--color-text-muted); font-size:10px; margin-top:2px; }
-.home-reminder input { width:100%; padding:11px; border:1px solid var(--color-border); border-radius:12px; background:#111214; color:var(--color-text); }
+.home-reminder input { box-sizing:border-box; display:block; min-width:0; max-width:100%; width:100%; padding:11px; border:1px solid var(--color-border); border-radius:12px; background:#111214; color:var(--color-text); }
 .home-reminder button { width:100%; margin-top:8px; padding:11px; border:0; border-radius:12px; background:var(--color-surface-2); color:var(--color-text); font-weight:800; }
 .home-reminder button:disabled { opacity:.45; }
 .reminder-msg { display:block; color:var(--accent,var(--color-green)); margin-top:8px; font-size:11px; }
