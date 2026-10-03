@@ -21,6 +21,9 @@ import './HomeWorkout.scss';
 
 const RANDOM_WORKOUT_SIZE = 4;
 const HISTORY_KEY = 'u_gym_home_history';
+const DEFAULT_DURATION_MINUTES = 20;
+const MIN_DURATION_MINUTES = 1;
+const MAX_DURATION_MINUTES = 180;
 
 function weekKey(date = new Date()) {
   const d = new Date(date);
@@ -60,7 +63,9 @@ export default function HomeWorkout() {
   const [exercises, setExercises] = useState([]);
   const [routine, setRoutine] = useState([]);
   const [done, setDone] = useState({});
-  const [seconds, setSeconds] = useState(20 * 60);
+  const [durationMinutes, setDurationMinutes] = useState(DEFAULT_DURATION_MINUTES);
+  const [durationInput, setDurationInput] = useState(String(DEFAULT_DURATION_MINUTES));
+  const [seconds, setSeconds] = useState(DEFAULT_DURATION_MINUTES * 60);
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState(loadHistory);
   const [reminderAt, setReminderAt] = useState('');
@@ -113,6 +118,20 @@ export default function HomeWorkout() {
 
   const toggle = id => setDone(previous => ({ ...previous, [id]: !previous[id] }));
 
+  const updateDuration = value => {
+    setDurationInput(value);
+    if (!/^\d+$/.test(value)) return;
+    const minutes = Number(value);
+    if (minutes < MIN_DURATION_MINUTES || minutes > MAX_DURATION_MINUTES) return;
+    setDurationMinutes(minutes);
+    setSeconds(minutes * 60);
+    setRunning(false);
+  };
+
+  const resetDurationInput = () => {
+    setDurationInput(String(durationMinutes));
+  };
+
   const openExercisePicker = () => {
     setSelectedIds(routine.map(exercise => exercise.id));
     setDialogOpen(true);
@@ -134,12 +153,12 @@ export default function HomeWorkout() {
       id: Date.now(),
       date: new Date().toISOString(),
       week: weekKey(),
-      seconds: 20 * 60,
+      seconds: durationMinutes * 60,
     }].slice(-120);
     setHistory(next);
     localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
     setDone({});
-    setSeconds(20 * 60);
+    setSeconds(durationMinutes * 60);
     setRunning(false);
   };
 
@@ -150,7 +169,7 @@ export default function HomeWorkout() {
       await scheduleWorkoutReminder({
         id: 7820,
         title: 'Allenamento Casa 💪',
-        body: 'La tua sessione U-GYM ti aspetta. Anche 20 minuti fanno la differenza.',
+        body: 'La tua sessione U-GYM ti aspetta. Anche poco movimento fa la differenza.',
         at,
       });
       setReminderMsg('Promemoria programmato ✓');
@@ -181,18 +200,36 @@ export default function HomeWorkout() {
       </div>
 
       <section className="home-timer">
-        <div><span>SESSIONE</span><strong>{mm}:{ss}</strong><small>{running ? 'In corso' : 'In pausa'}</small></div>
+        <div className="home-timer__display">
+          <span>SESSIONE</span>
+          <strong>{mm}:{ss}</strong>
+          <small>{running ? 'In corso' : 'In pausa'}</small>
+        </div>
+        <label className="home-timer__duration">
+          <span>Durata (min)</span>
+          <input
+            aria-label="Durata sessione in minuti"
+            type="number"
+            min={MIN_DURATION_MINUTES}
+            max={MAX_DURATION_MINUTES}
+            step="1"
+            inputMode="numeric"
+            value={durationInput}
+            onChange={event => updateDuration(event.target.value)}
+            onBlur={resetDurationInput}
+          />
+        </label>
         <div className="home-timer__actions">
           <button onClick={() => setRunning(value => !value)} aria-label={running ? 'Pausa' : 'Avvia'}>
             {running ? <PauseRoundedIcon /> : <PlayArrowRoundedIcon />}<span>{running ? 'Pausa' : 'Avvia'}</span>
           </button>
-          <button onClick={() => { setRunning(false); setSeconds(20 * 60); }} aria-label="Azzera"><RestartAltRoundedIcon /></button>
+          <button onClick={() => { setRunning(false); setSeconds(durationMinutes * 60); }} aria-label="Azzera"><RestartAltRoundedIcon /></button>
         </div>
       </section>
 
       <div className="home-workout__progress">
         <div><strong>{completed}/{routine.length}</strong><span>esercizi completati</span></div>
-        <div><TimerOutlinedIcon /><span>~20 min</span></div>
+        <div><TimerOutlinedIcon /><span>~{durationMinutes} min</span></div>
       </div>
 
       {routine.length > 0 ? (

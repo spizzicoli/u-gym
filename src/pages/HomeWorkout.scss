@@ -31,12 +31,21 @@
 .home-ex.done .home-ex__check { color:var(--color-green); }
 .home-workout__complete { margin-top:14px; padding:15px; text-align:center; border-radius:14px; background:var(--rgba-green-0-05); color:var(--color-green); font-weight:700; }
 
-.home-timer { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding:16px; border:1px solid var(--color-border); border-radius:18px; background:var(--color-surface); }
+.home-timer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; padding:16px; border:1px solid var(--color-border); border-radius:18px; background:var(--color-surface); }
 .home-timer span,.home-timer small { display:block; color:var(--color-text-muted); font-size:10px; }
 .home-timer strong { display:block; font-family:$font-mono; font-size:32px; color:var(--accent,var(--color-green)); margin:2px 0; }
+.home-timer__duration { display:flex; flex-direction:column; gap:5px; color:var(--color-text-muted); font-size:10px; }
+.home-timer__duration input { width:70px; padding:8px; border:1px solid var(--color-border); border-radius:10px; background:var(--color-surface-2); color:var(--color-text); font:700 16px $font-mono; }
+.home-timer__duration input:focus { outline:1px solid var(--accent,var(--color-green)); }
 .home-timer__actions { display:flex; gap:7px; }
 .home-timer__actions button { border:1px solid var(--color-border); background:var(--color-surface-2); color:var(--color-text); border-radius:12px; padding:9px 11px; display:flex; align-items:center; gap:4px; font-weight:700; }
 .home-timer__actions button:first-child { background:var(--accent,var(--color-green)); color:#07110b; border-color:transparent; }
+@media (max-width: 380px) {
+  .home-timer { padding:12px; gap:6px; }
+  .home-timer strong { font-size:27px; }
+  .home-timer__actions { gap:4px; }
+  .home-timer__actions button { padding:8px; }
+}
 .home-complete-btn { width:100%; margin-top:13px; padding:13px; border:0; border-radius:14px; background:var(--accent,var(--color-green)); color:#07110b; font-weight:900; }
 .home-history,.home-reminder { margin-top:14px; padding:16px; border:1px solid var(--color-border); border-radius:18px; background:var(--color-surface); }
 .home-history__head { display:flex; justify-content:space-between; align-items:center; }
