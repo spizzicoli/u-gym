@@ -168,17 +168,18 @@ Il client supporta `schede` -> `scheda_days` -> `scheda_exercises` -> `exercises
 
 Contenuti globali: promo, notifiche, eventi, corsi e rilevazioni affluenza senza `gym_id` vengono considerati visibili anche quando l'utente ha una palestra selezionata.
 
-## Build iOS con Codemagic e sideload dal PC
+## Build iOS con Codemagic e installazione tramite AltServer
 
-Il workflow `ios-unsigned` in `codemagic.yaml` genera `U-GYM-sideload.ipa`, un IPA non firmato che puoi installare direttamente dal PC con un programma di sideload come [Sideloadly](https://sideloadly.io/). Non serve installare l'app AltStore sull'iPhone. La firma viene applicata da Sideloadly durante l'installazione: con un Apple ID gratuito l'app va normalmente rifirmata/reinstallata ogni 7 giorni.
+Il workflow `ios-unsigned` in `codemagic.yaml` genera `U-GYM-AltServer.ipa`, un IPA non firmato da installare direttamente dal PC con AltServer. AltServer applica la firma personale durante l'installazione; non devi copiare l'IPA sull'iPhone.
 
 1. In Codemagic, avvia una build del branch `main` usando il workflow `ios-unsigned`.
-2. Scarica l'artefatto `U-GYM-sideload.ipa` sul PC.
-3. Apri Sideloadly, collega l'iPhone via USB, inserisci l'Apple ID quando richiesto e trascina l'IPA nella finestra.
-4. Premi **Start** e attendi che Sideloadly completi firma e installazione. Se iOS lo richiede, abilita **Modalità sviluppatore** in **Impostazioni → Privacy e sicurezza** e riavvia l'iPhone.
-5. Per rinnovare l'app con un Apple ID gratuito, ripeti il sideload dal PC prima della scadenza.
+2. Scarica sul PC l'artefatto `U-GYM-AltServer.ipa`.
+3. Collega l'iPhone al PC via USB, sbloccalo e conferma **Autorizza/Trust** se richiesto.
+4. Tieni premuto **Shift** e clicca sull'icona di AltServer nell'area di notifica di Windows.
+5. Seleziona **Sideload .ipa → [il tuo iPhone]**, scegli `U-GYM-AltServer.ipa` e inserisci l'Apple ID se richiesto. AltServer firmerà e installerà l'app direttamente sul telefono.
+6. Se iOS richiede la Modalità sviluppatore, abilitala in **Impostazioni → Privacy e sicurezza** e riavvia l'iPhone.
 
-Codemagic usa un runner macOS per compilare l'app; la firma per l'installazione personale viene invece gestita sul PC da Sideloadly. Questo IPA è per uso personale, non per App Store. Non caricare su GitHub chiavi private Firebase o file service account.
+Su Windows aggiorna AltServer almeno alla versione **1.7.4**: corregge un problema di app che si chiudono all'avvio su iOS 26.4. Con un Apple ID gratuito la firma personale scade normalmente dopo 7 giorni: ripeti il sideload da AltServer per reinstallare/rinnovare l'app. Questo IPA è per uso personale, non per App Store. Non caricare su GitHub chiavi private Firebase o file service account.
 
 
 ## U-GYM client registry sync

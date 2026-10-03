@@ -1,6 +1,6 @@
 workflows:
   ios-unsigned:
-    name: U-GYM iOS (sideload da PC)
+    name: U-GYM iOS (AltServer)
     max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
@@ -27,7 +27,7 @@ workflows:
             -derivedDataPath build/ios \
             CODE_SIGNING_ALLOWED=NO \
             build
-      - name: Package unsigned IPA for PC sideloading
+      - name: Package unsigned IPA for AltServer
         script: |
           APP_PATH=build/ios/Build/Products/Release-iphoneos/App.app
           if [ ! -d "$APP_PATH" ]; then
@@ -42,7 +42,7 @@ workflows:
           mkdir -p build/unsigned-ipa/Payload
           cp -R "$APP_PATH" build/unsigned-ipa/Payload/App.app
           cd build/unsigned-ipa
-          zip -qry ../U-GYM-sideload.ipa Payload
-          unzip -t ../U-GYM-sideload.ipa
+          zip -qry ../U-GYM-AltServer.ipa Payload
+          unzip -t ../U-GYM-AltServer.ipa
     artifacts:
-      - build/U-GYM-sideload.ipa
+      - build/U-GYM-AltServer.ipa
