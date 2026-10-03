@@ -37,12 +37,50 @@ export function AppProvider({ children }) {
 
   useEffect(() => {
     let active = true;
+    const startupTimeout = setTimeout(() => {
+      if (!active) return;
+
+      console.error('Firebase Auth non ha completato il controllo iniziale entro 10 secondi.');
+      const firebaseUser = auth.currentUser;
+      if (firebaseUser) {
+        let savedUser = null;
+        try {
+          const saved = localStorage.getItem('u_gym_user');
+          savedUser = saved ? JSON.parse(saved) : null;
+        } catch (error) {
+          console.error('Lettura del profilo locale U-GYM fallita:', error);
+        }
+        const fallback = {
+          id: firebaseUser.uid,
+          email: firebaseUser.email,
+          role: savedUser?.role || 'client',
+          username: savedUser?.username || firebaseUser.email?.split('@')[0] || 'Atleta',
+          trainer_id: savedUser?.trainer_id || null,
+          theme: savedUser?.theme || 'green',
+          weekly_goal: savedUser?.weekly_goal || 3,
+          workout_reminders: savedUser?.workout_reminders ?? true,
+          age: savedUser?.age ?? '',
+          height: savedUser?.height ?? '',
+          weight: savedUser?.weight ?? '',
+          sex: savedUser?.sex ?? '',
+          membership: savedUser?.membership || null,
+          membership_plan: savedUser?.membership_plan || '',
+          membership_expires_at: savedUser?.membership_expires_at || '',
+          membership_status: savedUser?.membership_status || 'active',
+        };
+        setUser(fallback);
+        setThemeState(fallback.theme);
+        applyTheme(fallback.theme);
+      }
+      setAuthReady(true);
+    }, 10000);
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
       if (!active) return;
+      clearTimeout(startupTimeout);
+      setAuthReady(true);
       if (!firebaseUser) {
         setUser(null);
         localStorage.removeItem('u_gym_user');
-        setAuthReady(true);
         return;
       }
 
@@ -74,7 +112,6 @@ export function AppProvider({ children }) {
       setUser(fallback);
       setThemeState(fallback.theme);
       applyTheme(fallback.theme);
-      setAuthReady(true);
       localStorage.setItem('u_gym_theme', fallback.theme);
       localStorage.setItem('u_gym_user', JSON.stringify(fallback));
 
@@ -136,6 +173,7 @@ export function AppProvider({ children }) {
     });
     return () => {
       active = false;
+      clearTimeout(startupTimeout);
       unsubscribe();
     };
   }, []);
