@@ -3,7 +3,7 @@
 .gyms-page {
   min-height: 100dvh;
   background: var(--color-bg);
-  padding: $spacing-lg $spacing-md;
+  padding: calc(#{$spacing-lg} + #{$safe-top}) $spacing-md $spacing-lg;
   padding-bottom: 100px;
   overflow-y: auto;
 }
@@ -13,7 +13,6 @@
   align-items: center;
   gap: $spacing-md;
   margin-bottom: $spacing-xl;
-  padding-top: env(safe-area-inset-top, 0);
 
   &__logo {
     width: 52px;
