@@ -168,18 +168,17 @@ Il client supporta `schede` -> `scheda_days` -> `scheda_exercises` -> `exercises
 
 Contenuti globali: promo, notifiche, eventi, corsi e rilevazioni affluenza senza `gym_id` vengono considerati visibili anche quando l'utente ha una palestra selezionata.
 
-## Build iOS con Codemagic e installazione tramite AltStore
+## Build iOS con Codemagic e sideload dal PC
 
-Il workflow `ios-unsigned` in `codemagic.yaml` genera un IPA non firmato, senza richiedere un account Apple Developer. È pensato per l'installazione personale tramite AltStore/AltServer, non per la pubblicazione su App Store.
+Il workflow `ios-unsigned` in `codemagic.yaml` genera `U-GYM-sideload.ipa`, un IPA non firmato che puoi installare direttamente dal PC con un programma di sideload come [Sideloadly](https://sideloadly.io/). Non serve installare l'app AltStore sull'iPhone. La firma viene applicata da Sideloadly durante l'installazione: con un Apple ID gratuito l'app va normalmente rifirmata/reinstallata ogni 7 giorni.
 
-1. Pubblica il progetto su GitHub e accedi a [Codemagic](https://codemagic.io/) con GitHub.
-2. Aggiungi il repository `spizzicoli/u-gym` e consenti a Codemagic di leggere il repository.
-3. In **Start new build**, scegli il branch `main` e il workflow `ios-unsigned`.
-4. Avvia la build e, quando termina, scarica l'artefatto `U-GYM-unsigned.ipa`.
-5. Installa AltStore sul tuo iPhone usando AltServer sul computer (iPhone e computer collegati via USB o sulla stessa rete Wi-Fi).
-6. Sul telefono apri AltStore, vai in **My Apps**, premi **+** e seleziona l'IPA scaricato. Per mantenere l'app installata, AltStore deve poterla aggiornare periodicamente (in genere ogni 7 giorni con un Apple ID gratuito).
+1. In Codemagic, avvia una build del branch `main` usando il workflow `ios-unsigned`.
+2. Scarica l'artefatto `U-GYM-sideload.ipa` sul PC.
+3. Apri Sideloadly, collega l'iPhone via USB, inserisci l'Apple ID quando richiesto e trascina l'IPA nella finestra.
+4. Premi **Start** e attendi che Sideloadly completi firma e installazione. Se iOS lo richiede, abilita **Modalità sviluppatore** in **Impostazioni → Privacy e sicurezza** e riavvia l'iPhone.
+5. Per rinnovare l'app con un Apple ID gratuito, ripeti il sideload dal PC prima della scadenza.
 
-Codemagic usa un runner macOS per creare il progetto iOS Capacitor e compilare l'app. La prima build può richiedere qualche minuto. Non caricare su GitHub chiavi private Firebase o file service account.
+Codemagic usa un runner macOS per compilare l'app; la firma per l'installazione personale viene invece gestita sul PC da Sideloadly. Questo IPA è per uso personale, non per App Store. Non caricare su GitHub chiavi private Firebase o file service account.
 
 
 ## U-GYM client registry sync
