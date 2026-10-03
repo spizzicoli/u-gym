@@ -51,9 +51,14 @@ export default function Profile() {
     try {
       await saveProfile({ username, theme, weeklyGoal: Number(goal), workoutReminders: reminders, age, height, weight, sex });
       localStorage.setItem('u_gym_reminder_day', day); localStorage.setItem('u_gym_reminder_time', time);
-      if (reminders) await scheduleWorkoutReminder({ id: REMINDER_ID, title: 'È ora di allenarti 💪', body: '20 minuti per te. Apri U-GYM e inizia la sessione.', at: nextReminder() });
-      else await cancelWorkoutReminder(REMINDER_ID);
-      setSaved(true); setTimeout(() => setSaved(false), 2200);
+      setSaved(true);
+      try {
+        if (reminders) await scheduleWorkoutReminder({ id: REMINDER_ID, title: 'È ora di allenarti 💪', body: '20 minuti per te. Apri U-GYM e inizia la sessione.', at: nextReminder() });
+        else await cancelWorkoutReminder(REMINDER_ID);
+      } catch (e) {
+        setError(`Profilo salvato, ma il promemoria non è stato aggiornato: ${e?.message || 'controlla i permessi delle notifiche.'}`);
+      }
+      setTimeout(() => setSaved(false), 2200);
     } catch (e) { setError(e?.message || 'Non è stato possibile salvare le impostazioni.'); }
   };
 

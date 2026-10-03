@@ -120,9 +120,11 @@ export async function scheduleWorkoutReminder({ id, title, body, at }) {
   let permission = await LocalNotifications.checkPermissions();
   if (permission.display !== 'granted') permission = await LocalNotifications.requestPermissions();
   if (permission.display !== 'granted') throw new Error('Permesso notifiche locali negato.');
-  await LocalNotifications.createChannel?.({
-    id: 'ugym-workout', name: 'Allenamenti', description: 'Promemoria allenamento', importance: 4,
-  });
+  if (Capacitor.getPlatform() === 'android') {
+    await LocalNotifications.createChannel({
+      id: 'ugym-workout', name: 'Allenamenti', description: 'Promemoria allenamento', importance: 4,
+    });
+  }
   await LocalNotifications.schedule({
     notifications: [{
       id: Number(id),
