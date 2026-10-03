@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppProvider, useApp } from './context/AppContext';
 import Login from './pages/Login';
@@ -40,16 +39,7 @@ const muiTheme = createTheme({
 });
 
 function AppRoutes() {
-  const { user, gymSelected, authReady } = useApp();
-
-  if (!authReady) {
-    return (
-      <div className="app-startup" role="status">
-        <CircularProgress size={32} />
-        <span>Avvio U-GYM...</span>
-      </div>
-    );
-  }
+  const { user, gymSelected } = useApp();
 
   if (!user) {
     return (
