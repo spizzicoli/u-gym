@@ -36,42 +36,86 @@ export function AppProvider({ children }) {
   useEffect(() => { applyTheme(theme); localStorage.setItem('u_gym_theme', theme); }, [theme]);
 
   useEffect(() => {
-    return auth.onAuthStateChanged(async (firebaseUser) => {
+    let active = true;
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      if (!active) return;
       if (!firebaseUser) {
         setUser(null);
         localStorage.removeItem('u_gym_user');
         setAuthReady(true);
         return;
       }
+
+      let savedUser = null;
+      const saved = localStorage.getItem('u_gym_user');
       try {
-        const snapshot = await getDoc(doc(db, 'users', firebaseUser.uid));
-        const profile = snapshot.exists() ? snapshot.data() : {};
-        const saved = localStorage.getItem('u_gym_user');
-        const savedUser = saved ? JSON.parse(saved) : null;
-        const nextUser = {
-          id: firebaseUser.uid,
-          email: firebaseUser.email,
-          role: profile.role || savedUser?.role || 'client',
-          username: profile.username || savedUser?.username || firebaseUser.email?.split('@')[0] || 'Atleta',
-          trainer_id: profile.trainer_id || savedUser?.trainer_id || null,
-          theme: profile.theme || savedUser?.theme || 'green',
-          weekly_goal: profile.weekly_goal || savedUser?.weekly_goal || 3,
-          workout_reminders: profile.workout_reminders ?? savedUser?.workout_reminders ?? true,
-          age: profile.age ?? savedUser?.age ?? '',
-          height: profile.height ?? savedUser?.height ?? '',
-          weight: profile.weight ?? savedUser?.weight ?? '',
-          sex: profile.sex ?? savedUser?.sex ?? '',
-          membership: profile.membership || savedUser?.membership || null,
-          membership_plan: profile.membership_plan || savedUser?.membership_plan || '',
-          membership_expires_at: profile.membership_expires_at || savedUser?.membership_expires_at || '',
-          membership_status: profile.membership_status || savedUser?.membership_status || 'active',
-        };
-        // Keep the client registry in sync with Firebase Authentication.
-        // This also backfills users who registered before the portal introduced the clients collection.
+        savedUser = saved ? JSON.parse(saved) : null;
+      } catch (error) {
+        console.error('Lettura del profilo locale U-GYM fallita:', error);
+      }
+      const fallback = {
+        id: firebaseUser.uid,
+        email: firebaseUser.email,
+        role: savedUser?.role || 'client',
+        username: savedUser?.username || firebaseUser.email?.split('@')[0] || 'Atleta',
+        trainer_id: savedUser?.trainer_id || null,
+        theme: savedUser?.theme || 'green',
+        weekly_goal: savedUser?.weekly_goal || 3,
+        workout_reminders: savedUser?.workout_reminders ?? true,
+        age: savedUser?.age ?? '',
+        height: savedUser?.height ?? '',
+        weight: savedUser?.weight ?? '',
+        sex: savedUser?.sex ?? '',
+        membership: savedUser?.membership || null,
+        membership_plan: savedUser?.membership_plan || '',
+        membership_expires_at: savedUser?.membership_expires_at || '',
+        membership_status: savedUser?.membership_status || 'active',
+      };
+      setUser(fallback);
+      setThemeState(fallback.theme);
+      applyTheme(fallback.theme);
+      setAuthReady(true);
+      localStorage.setItem('u_gym_theme', fallback.theme);
+      localStorage.setItem('u_gym_user', JSON.stringify(fallback));
+
+      const loadProfile = async () => {
         try {
+          const snapshot = await getDoc(doc(db, 'users', firebaseUser.uid));
+          if (!active) return;
+          const profile = snapshot.exists() ? snapshot.data() : {};
+          const nextUser = {
+            id: firebaseUser.uid,
+            email: firebaseUser.email,
+            role: profile.role || savedUser?.role || 'client',
+            username: profile.username || savedUser?.username || firebaseUser.email?.split('@')[0] || 'Atleta',
+            trainer_id: profile.trainer_id || savedUser?.trainer_id || null,
+            theme: profile.theme || savedUser?.theme || 'green',
+            weekly_goal: profile.weekly_goal || savedUser?.weekly_goal || 3,
+            workout_reminders: profile.workout_reminders ?? savedUser?.workout_reminders ?? true,
+            age: profile.age ?? savedUser?.age ?? '',
+            height: profile.height ?? savedUser?.height ?? '',
+            weight: profile.weight ?? savedUser?.weight ?? '',
+            sex: profile.sex ?? savedUser?.sex ?? '',
+            membership: profile.membership || savedUser?.membership || null,
+            membership_plan: profile.membership_plan || savedUser?.membership_plan || '',
+            membership_expires_at: profile.membership_expires_at || savedUser?.membership_expires_at || '',
+            membership_status: profile.membership_status || savedUser?.membership_status || 'active',
+          };
+          setUser(nextUser);
+          setThemeState(nextUser.theme);
+          applyTheme(nextUser.theme);
+          localStorage.setItem('u_gym_theme', nextUser.theme);
+          localStorage.setItem('u_gym_user', JSON.stringify(nextUser));
+
+          // Keep the portal registry in sync without blocking the app from opening.
           const savedGym = localStorage.getItem('u_gym_gym');
-          const selectedGym = savedGym ? JSON.parse(savedGym) : null;
-          await setDoc(doc(db, 'clients', firebaseUser.uid), {
+          let selectedGym = null;
+          try {
+            selectedGym = savedGym ? JSON.parse(savedGym) : null;
+          } catch (error) {
+            console.error('Lettura della palestra locale U-GYM fallita:', error);
+          }
+          setDoc(doc(db, 'clients', firebaseUser.uid), {
             uid: firebaseUser.uid,
             name: nextUser.username || firebaseUser.email?.split('@')[0] || 'Cliente',
             email: firebaseUser.email || '',
@@ -80,25 +124,20 @@ export function AppProvider({ children }) {
             membership_expires: nextUser.membership_expires_at || profile.membership_expires_at || '',
             updated_at: serverTimestamp(),
             created_at: profile.created_at || serverTimestamp(),
-          }, { merge: true });
-        } catch (clientSyncError) {
-          console.error('Sincronizzazione cliente U-GYM fallita:', clientSyncError);
-          // Authentication remains usable, but the console error makes a missing Firestore rule/configuration visible.
+          }, { merge: true }).catch(error => {
+            console.error('Sincronizzazione cliente U-GYM fallita:', error);
+          });
+          setupPushNotifications(nextUser.id).catch(console.error);
+        } catch (error) {
+          if (active) console.error('Caricamento profilo:', error);
         }
-        setUser(nextUser);
-        setThemeState(nextUser.theme); applyTheme(nextUser.theme); localStorage.setItem('u_gym_theme', nextUser.theme);
-        localStorage.setItem('u_gym_user', JSON.stringify(nextUser));
-        setupPushNotifications(nextUser.id).catch(console.error);
-      } catch (error) {
-        console.error('Caricamento profilo:', error);
-        const saved = localStorage.getItem('u_gym_user');
-        const fallback = saved ? JSON.parse(saved) : { id: firebaseUser.uid, email: firebaseUser.email, role: 'client', username: 'Atleta', theme: 'green', weekly_goal: 3, workout_reminders: true };
-        setUser(fallback);
-        setThemeState(fallback.theme || 'green'); applyTheme(fallback.theme || 'green');
-      } finally {
-        setAuthReady(true);
-      }
+      };
+      loadProfile();
     });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   }, []);
 
   const [selectedGym, setSelectedGym] = useState(() => {
