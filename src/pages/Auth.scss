@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: $color-bg;
+  background: var(--color-bg);
   position: relative;
   overflow: hidden;
   padding: $spacing-lg $spacing-md;
@@ -26,7 +26,7 @@
     &--1 {
       width: 300px;
       height: 300px;
-      background: $color-green;
+      background: var(--color-green);
       top: -100px;
       right: -80px;
       animation: float1 8s ease-in-out infinite;
@@ -35,7 +35,7 @@
     &--2 {
       width: 200px;
       height: 200px;
-      background: $color-green;
+      background: var(--color-green);
       bottom: -60px;
       left: -60px;
       animation: float2 10s ease-in-out infinite;
@@ -80,8 +80,8 @@
   &__icon {
     width: 48px;
     height: 48px;
-    background: $color-green;
-    color: $color-bg;
+    background: var(--color-green);
+    color: var(--color-bg);
     border-radius: $radius-sm;
     display: flex;
     align-items: center;
@@ -94,16 +94,16 @@
   &__name {
     font-family: $font-display;
     font-size: 1.8rem;
-    color: $color-text;
+    color: var(--color-text);
     letter-spacing: 0.1em;
     
-    span { color: $color-green; }
+    span { color: var(--color-green); }
   }
 }
 
 .auth-card {
-  background: $color-surface;
-  border: 1px solid $color-border;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: $radius-lg;
   padding: $spacing-xl $spacing-lg;
   
@@ -111,12 +111,12 @@
     font-family: $font-display;
     font-size: 2rem;
     letter-spacing: 0.04em;
-    color: $color-text;
+    color: var(--color-text);
     margin-bottom: $spacing-xs;
   }
   
   &__sub {
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     font-size: 0.9rem;
     margin-bottom: $spacing-xl;
   }
@@ -129,28 +129,28 @@
   
   .MuiTextField-root {
     .MuiInputBase-root {
-      background: $color-surface-2;
+      background: var(--color-surface-2);
     }
   }
 }
 
 .auth-error {
-  color: $color-danger;
+  color: var(--color-danger);
   font-size: 0.85rem;
   padding: $spacing-sm $spacing-md;
-  background: rgba($color-danger, 0.1);
+  background: var(--rgba-danger-0-1);
   border-radius: $radius-sm;
-  border: 1px solid rgba($color-danger, 0.2);
+  border: 1px solid var(--rgba-danger-0-2);
 }
 
 .auth-footer {
   text-align: center;
-  color: $color-text-muted;
+  color: var(--color-text-muted);
   font-size: 0.875rem;
   margin-top: $spacing-lg;
   
   a {
-    color: $color-green;
+    color: var(--color-green);
     text-decoration: none;
     font-weight: 600;
     
@@ -158,7 +158,7 @@
   }
   
   &__privacy {
-    color: $color-text-muted !important;
+    color: var(--color-text-muted) !important;
     font-size: 0.8rem;
     text-decoration: underline !important;
   }

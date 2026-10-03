@@ -5,7 +5,7 @@ $color-bg:           #111214;
 $color-surface:      #1a1c1f;
 $color-surface-2:    #222528;
 $color-border:       #2a2d32;
-$color-green:        #3ddc84;
+$color-green:        var(--color-green);
 $color-green-dark:   #2bb56a;
 $color-green-glow:   rgba(61, 220, 132, 0.15);
 $color-text:         #f0f0f0;

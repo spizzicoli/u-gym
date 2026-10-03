@@ -7,10 +7,10 @@
   right: 0;
   height: calc(#{$nav-height} + #{$safe-bottom});
   padding-bottom: $safe-bottom;
-  background: rgba($color-surface, 0.96);
+  background: var(--rgba-surface-0-96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid $color-border;
+  border-top: 1px solid var(--color-border);
   display: flex;
   align-items: stretch;
   z-index: 100;
@@ -28,16 +28,16 @@
     gap: 4px;
     padding: 8px 4px;
     transition: all $transition-fast;
-    color: $color-text-dim;
+    color: var(--color-text-dim);
 
     &:active { transform: scale(0.92); }
 
     &.active {
-      color: $color-green;
+      color: var(--color-green);
 
       .bottom-nav__icon {
-        background: $color-green-glow;
-        border-color: rgba($color-green, 0.2);
+        background: var(--color-green-glow);
+        border-color: var(--rgba-green-0-2);
       }
     }
   }
@@ -69,8 +69,8 @@
     right: calc(50% - 16px);
     width: 4px;
     height: 4px;
-    background: $color-green;
+    background: var(--color-green);
     border-radius: 50%;
-    box-shadow: 0 0 6px $color-green;
+    box-shadow: 0 0 6px var(--color-green);
   }
 }

@@ -1,13 +1,203 @@
 {
-  "gyms": [],
-  "scheda_days": [],
-  "exercises": [],
-  "courses": [],
-  "occupancy": [],
-  "notifications": [],
-  "promos": [],
-  "events": [],
-  "event_participants": [],
-  "community_messages": [],
-  "pt_messages": []
+    "gyms": {
+        "gym-milano": {
+            "name": "U-GYM Milano",
+            "address": "Milano",
+            "latitude": 45.4642,
+            "longitude": 9.19,
+            "distance": "2,4 km",
+            "open": true,
+            "hours": "06:00 - 22:00",
+            "members": 248
+        },
+        "gym-monza": {
+            "name": "U-GYM Monza",
+            "address": "Monza",
+            "latitude": 45.5845,
+            "longitude": 9.2744,
+            "distance": "8,1 km",
+            "open": true,
+            "hours": "06:00 - 22:00",
+            "members": 176
+        },
+        "gym-torino": {
+            "name": "U-GYM Torino",
+            "address": "Torino",
+            "latitude": 45.0703,
+            "longitude": 7.6869,
+            "distance": "145 km",
+            "open": false,
+            "hours": "07:00 - 21:00",
+            "members": 119
+        }
+    },
+    "scheda_days": {
+        "day-push": {
+            "gym_id": "gym-milano",
+            "day": "Push",
+            "sort_order": 1
+        },
+        "day-pull": {
+            "gym_id": "gym-milano",
+            "day": "Pull",
+            "sort_order": 2
+        },
+        "day-legs": {
+            "gym_id": "gym-milano",
+            "day": "Legs",
+            "sort_order": 3
+        }
+    },
+    "exercises": {
+        "exercise-bench": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-push",
+            "name": "Panca piana",
+            "sets": "4 x 8",
+            "weight": "60 kg",
+            "muscle": "Petto",
+            "gif_url": "/exercise-gifs/panca-piana.gif",
+            "sort_order": 1
+        },
+        "exercise-row": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-pull",
+            "name": "Rematore",
+            "sets": "4 x 10",
+            "weight": "40 kg",
+            "muscle": "Dorso",
+            "gif_url": "/exercise-gifs/rematore.gif",
+            "sort_order": 1
+        },
+        "exercise-squat": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-legs",
+            "name": "Squat",
+            "sets": "4 x 8",
+            "weight": "70 kg",
+            "muscle": "Gambe",
+            "gif_url": "/exercise-gifs/squat.gif",
+            "sort_order": 1
+        },
+        "exercise-press": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-push",
+            "name": "Lento avanti",
+            "sets": "3 x 10",
+            "weight": "25 kg",
+            "muscle": "Spalle",
+            "gif_url": "/exercise-gifs/lento-avanti.gif",
+            "sort_order": 2
+        },
+        "exercise-pushdown": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-push",
+            "name": "Pushdown tricipiti",
+            "sets": "3 x 12",
+            "weight": "20 kg",
+            "muscle": "Tricipiti",
+            "gif_url": "/exercise-gifs/pushdown-tricipiti.gif",
+            "sort_order": 3
+        },
+        "exercise-flessioni": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-push",
+            "name": "Flessioni",
+            "sets": "3 x 10",
+            "weight": "",
+            "muscle": "Petto",
+            "gif_url": "/exercise-gifs/flessioni.gif",
+            "sort_order": 4
+        },
+        "exercise-lat": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-pull",
+            "name": "Lat machine",
+            "sets": "3 x 10",
+            "weight": "40 kg",
+            "muscle": "Dorso",
+            "gif_url": "/exercise-gifs/lat-machine.gif",
+            "sort_order": 2
+        },
+        "exercise-curl": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-pull",
+            "name": "Curl bicipiti",
+            "sets": "3 x 12",
+            "weight": "10 kg",
+            "muscle": "Bicipiti",
+            "gif_url": "/exercise-gifs/curl-bicipiti.gif",
+            "sort_order": 3
+        },
+        "exercise-trazioni": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-pull",
+            "name": "Trazioni alla sbarra",
+            "sets": "3 x 6",
+            "weight": "",
+            "muscle": "Dorso",
+            "gif_url": "/exercise-gifs/trazioni.gif",
+            "sort_order": 4
+        },
+        "exercise-legpress": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-legs",
+            "name": "Leg press",
+            "sets": "3 x 12",
+            "weight": "80 kg",
+            "muscle": "Gambe",
+            "gif_url": "/exercise-gifs/leg-press.gif",
+            "sort_order": 2
+        },
+        "exercise-affondi": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-legs",
+            "name": "Affondi",
+            "sets": "3 x 10",
+            "weight": "8 kg",
+            "muscle": "Gambe",
+            "gif_url": "/exercise-gifs/affondi.gif",
+            "sort_order": 3
+        },
+        "exercise-hipthrust": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-legs",
+            "name": "Hip thrust",
+            "sets": "3 x 10",
+            "weight": "40 kg",
+            "muscle": "Glutei",
+            "gif_url": "/exercise-gifs/hip-thrust.gif",
+            "sort_order": 4
+        },
+        "exercise-stacco": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-legs",
+            "name": "Stacco da terra",
+            "sets": "3 x 6",
+            "weight": "50 kg",
+            "muscle": "Femorali",
+            "gif_url": "/exercise-gifs/stacco-da-terra.gif",
+            "sort_order": 5
+        },
+        "exercise-plank": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-legs",
+            "name": "Plank",
+            "sets": "3 x 30 sec",
+            "weight": "",
+            "muscle": "Core",
+            "gif_url": "/exercise-gifs/plank.gif",
+            "sort_order": 6
+        },
+        "exercise-crunch": {
+            "gym_id": "gym-milano",
+            "scheda_day_id": "day-legs",
+            "name": "Crunch addominali",
+            "sets": "3 x 15",
+            "weight": "",
+            "muscle": "Addome",
+            "gif_url": "/exercise-gifs/crunch.gif",
+            "sort_order": 7
+        }
+    }
 }

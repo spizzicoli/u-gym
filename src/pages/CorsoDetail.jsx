@@ -125,7 +125,7 @@ export default function CorsoDetail() {
 
           <div className="detail-meta card">
             <div className="detail-meta-row">
-              <PersonIcon sx={{ color: '#3ddc84', fontSize: '1.1rem' }} />
+              <PersonIcon sx={{ color: 'var(--color-green)', fontSize: '1.1rem' }} />
               <div>
                 <p className="detail-meta-label">Coach</p>
                 <p className="detail-meta-val">{corso.coach}</p>
@@ -133,7 +133,7 @@ export default function CorsoDetail() {
             </div>
 
             <div className="detail-meta-row">
-              <CalendarMonthIcon sx={{ color: '#3ddc84', fontSize: '1.1rem' }} />
+              <CalendarMonthIcon sx={{ color: 'var(--color-green)', fontSize: '1.1rem' }} />
               <div>
                 <p className="detail-meta-label">Orario</p>
                 <p className="detail-meta-val">{corso.schedule}</p>
@@ -141,7 +141,7 @@ export default function CorsoDetail() {
             </div>
 
             <div className="detail-meta-row">
-              <AccessTimeIcon sx={{ color: '#3ddc84', fontSize: '1.1rem' }} />
+              <AccessTimeIcon sx={{ color: 'var(--color-green)', fontSize: '1.1rem' }} />
               <div>
                 <p className="detail-meta-label">Durata</p>
                 <p className="detail-meta-val">{corso.duration}</p>
@@ -149,7 +149,7 @@ export default function CorsoDetail() {
             </div>
 
             <div className="detail-meta-row">
-              <EuroIcon sx={{ color: '#3ddc84', fontSize: '1.1rem' }} />
+              <EuroIcon sx={{ color: 'var(--color-green)', fontSize: '1.1rem' }} />
               <div>
                 <p className="detail-meta-label">Costo</p>
                 <p className="detail-meta-val">€{corso.price}/mese</p>
@@ -164,7 +164,7 @@ export default function CorsoDetail() {
                 style={{
                   color:
                     corso.spots > 2
-                      ? '#3ddc84'
+                      ? 'var(--color-green)'
                       : corso.spots > 0
                       ? '#faad14'
                       : '#ff4d4f',
@@ -206,7 +206,7 @@ export default function CorsoDetail() {
           <h2 className="payment-title">Pagamento Sicuro</h2>
 
           <div className="payment-secure">
-            <LockIcon sx={{ fontSize: '0.9rem', color: '#3ddc84' }} />
+            <LockIcon sx={{ fontSize: '0.9rem', color: 'var(--color-green)' }} />
             <span>Connessione sicura SSL — i tuoi dati sono protetti</span>
           </div>
 

@@ -1,15 +1,15 @@
  
 
-.scheda-page { background: $color-bg; }
+.scheda-page { background: var(--color-bg); }
 
 .scheda-coach {
-  color: $color-text-muted;
+  color: var(--color-text-muted);
   font-size: 0.85rem;
   margin-bottom: $spacing-xl;
   padding: $spacing-sm $spacing-md;
-  background: $color-surface;
+  background: var(--color-surface);
   border-radius: $radius-sm;
-  border-left: 3px solid $color-green;
+  border-left: 3px solid var(--color-green);
 }
 
 .scheda-days {
@@ -19,13 +19,13 @@
 }
 
 .scheda-day {
-  background: $color-surface;
-  border: 1px solid $color-border;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: $radius-md;
   overflow: hidden;
   transition: border-color $transition-fast;
 
-  &.open { border-color: rgba($color-green, 0.25); }
+  &.open { border-color: var(--rgba-green-0-25); }
 
   &__header {
     width: 100%;
@@ -36,7 +36,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: $color-text;
+    color: var(--color-text);
     text-align: left;
   }
 
@@ -55,20 +55,20 @@
   &__progress {
     font-family: $font-mono;
     font-size: 0.72rem;
-    color: $color-green;
-    background: $color-green-glow;
+    color: var(--color-green);
+    background: var(--color-green-glow);
     padding: 2px 8px;
     border-radius: 20px;
   }
 
   &__arrow {
     font-size: 0.7rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
   }
 }
 
 .scheda-exercises {
-  border-top: 1px solid $color-border;
+  border-top: 1px solid var(--color-border);
   padding: $spacing-sm 0;
 }
 
@@ -79,17 +79,30 @@
   padding: $spacing-sm $spacing-md;
   transition: background $transition-fast;
 
-  &:hover { background: rgba($color-green, 0.03); }
+  &:hover { background: var(--rgba-green-0-03); }
+
+  &__thumb {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #15171a;
+    cursor: pointer;
+    img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  }
 
   &.done {
-    .scheda-ex__name { text-decoration: line-through; color: $color-text-dim; }
+    .scheda-ex__name { text-decoration: line-through; color: var(--color-text-dim); }
   }
 
   &__name {
     flex: 1;
     background: none;
     border: none;
-    color: $color-text;
+    color: var(--color-text);
     font-size: 0.9rem;
     font-family: $font-body;
     cursor: pointer;
@@ -97,13 +110,13 @@
     padding: 0;
     transition: color $transition-fast;
 
-    &:hover { color: $color-green; }
+    &:hover { color: var(--color-green); }
   }
 
   &__sets {
     font-family: $font-mono;
     font-size: 0.78rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     white-space: nowrap;
   }
 
@@ -114,17 +127,17 @@
     align-items: center;
     justify-content: center;
     background: none;
-    border: 1px solid $color-border;
+    border: 1px solid var(--color-border);
     border-radius: $radius-sm;
     cursor: pointer;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     transition: all $transition-fast;
     flex-shrink: 0;
 
     &:hover {
-      color: $color-green;
-      border-color: $color-green;
-      background: $color-green-glow;
+      color: var(--color-green);
+      border-color: var(--color-green);
+      background: var(--color-green-glow);
     }
   }
 }
@@ -132,12 +145,12 @@
 .scheda-complete {
   margin: $spacing-sm $spacing-md;
   padding: $spacing-sm;
-  background: $color-green-glow;
-  border: 1px solid rgba($color-green, 0.3);
+  background: var(--color-green-glow);
+  border: 1px solid var(--rgba-green-0-3);
   border-radius: $radius-sm;
   text-align: center;
   font-size: 0.85rem;
-  color: $color-green;
+  color: var(--color-green);
   font-weight: 500;
 }
 
@@ -147,22 +160,22 @@
   justify-content: space-between;
   align-items: center;
   padding: $spacing-sm $spacing-md;
-  background: $color-surface-2;
+  background: var(--color-surface-2);
   border-radius: $radius-sm;
   margin-bottom: $spacing-md;
   font-size: 0.85rem;
-  color: $color-text-muted;
+  color: var(--color-text-muted);
 }
 
 .ex-sidebar-sets {
   font-family: $font-mono;
   font-size: 0.9rem;
-  color: $color-green;
+  color: var(--color-green);
 }
 
 .ex-sidebar-gif {
-  background: $color-surface-2;
-  border: 1px solid $color-border;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
   border-radius: $radius-md;
   padding: $spacing-md;
   text-align: center;
@@ -175,11 +188,11 @@
   gap: $spacing-sm;
   overflow: hidden;
 
-  &__icon { color: $color-text-dim; font-size: 2rem !important; }
+  &__icon { color: var(--color-text-dim); font-size: 2rem !important; }
 
   &__hint {
     font-size: 0.78rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     margin-bottom: $spacing-sm;
   }
 
@@ -196,7 +209,7 @@
     font-family: $font-display;
     font-size: 1rem;
     letter-spacing: 0.04em;
-    color: $color-text;
+    color: var(--color-text);
     margin-bottom: $spacing-sm;
   }
 
@@ -209,13 +222,13 @@
     li {
       display: flex;
       gap: $spacing-sm;
-      color: $color-text-muted;
+      color: var(--color-text-muted);
       font-size: 0.85rem;
       line-height: 1.4;
 
       &::before {
         content: '→';
-        color: $color-green;
+        color: var(--color-green);
         flex-shrink: 0;
       }
     }
@@ -224,17 +237,17 @@
 
 // Notes sidebar
 .notes-hint {
-  color: $color-text-muted;
+  color: var(--color-text-muted);
   font-size: 0.82rem;
   margin-bottom: $spacing-md;
 }
 
 .notes-textarea {
   width: 100%;
-  background: $color-surface-2;
-  border: 1px solid $color-border;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
   border-radius: $radius-sm;
-  color: $color-text;
+  color: var(--color-text);
   font-family: $font-mono;
   font-size: 0.85rem;
   padding: $spacing-md;
@@ -244,10 +257,10 @@
 
   &:focus {
     outline: none;
-    border-color: $color-green;
+    border-color: var(--color-green);
   }
 
-  &::placeholder { color: $color-text-dim; }
+  &::placeholder { color: var(--color-text-dim); }
 }
 
 .notes-presets {
@@ -258,18 +271,42 @@
 }
 
 .notes-preset {
-  background: $color-surface-2;
-  border: 1px solid $color-border;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
   border-radius: $radius-full;
-  color: $color-text-muted;
+  color: var(--color-text-muted);
   font-size: 0.78rem;
   padding: 4px 12px;
   cursor: pointer;
   transition: all $transition-fast;
 
   &:hover {
-    border-color: $color-green;
-    color: $color-green;
-    background: $color-green-glow;
+    border-color: var(--color-green);
+    color: var(--color-green);
+    background: var(--color-green-glow);
+  }
+}
+.scheda-toolbar { display:flex; align-items:center; gap:10px; margin-bottom:14px; padding:12px; background:var(--color-surface); border:1px solid var(--color-border); border-radius:16px; }
+.scheda-toolbar > div:first-child { flex:1; min-width:0; }
+.scheda-progress-text { color:var(--color-text-muted); font-size:11px; }
+.scheda-timer { font-variant-numeric:tabular-nums; font-weight:800; color:var(--color-green); white-space:nowrap; }
+.scheda-start { border:0; border-radius:10px; padding:9px 11px; background:var(--color-green); color:#08110c; font-weight:800; font-size:10px; cursor:pointer; }
+.scheda-start.secondary { background:var(--color-surface-2); color:var(--color-text); border:1px solid var(--color-border); }
+.ex-sidebar-gif { min-height:180px; overflow:hidden; position:relative; }
+.ex-sidebar-gif__img { width:100%; max-height:260px; object-fit:contain; border-radius:12px; display:block; }
+.notes-gif{margin-bottom:14px;border:1px solid var(--color-border);border-radius:14px;overflow:hidden;background:var(--color-surface-2)}.notes-gif img{display:block;width:100%;max-height:230px;object-fit:contain;background:var(--color-bg)}.notes-gif span{display:block;padding:8px 10px;color:var(--color-text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+
+.ex-sidebar-photo {
+  position: relative;
+  margin: 0 0 $spacing-md;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #15171a;
+  img { display: block; width: 100%; max-height: 300px; object-fit: cover; }
+  figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 8px;
+    background: linear-gradient(transparent, rgba(0,0,0,.75));
+    color: rgba(255,255,255,.75); font-size: 0.64rem; line-height: 1.3;
+    a { color: rgba(255,255,255,.9); }
   }
 }

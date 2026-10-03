@@ -1,5 +1,5 @@
 .privacy-page {
-  background: $color-bg;
+  background: var(--color-bg);
   
   .detail-back {
     display: flex;
@@ -7,20 +7,20 @@
     gap: $spacing-sm;
     background: none;
     border: none;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     font-size: 0.875rem;
     cursor: pointer;
     margin-bottom: $spacing-lg;
     padding: 0;
     transition: color $transition-fast;
     
-    &:hover { color: $color-green; }
+    &:hover { color: var(--color-green); }
   }
 }
 
 .privacy-update {
   font-size: 0.78rem;
-  color: $color-text-dim;
+  color: var(--color-text-dim);
   margin-bottom: $spacing-xl;
   font-family: $font-mono;
 }
@@ -32,8 +32,8 @@
 }
 
 .privacy-section {
-  background: $color-surface;
-  border: 1px solid $color-border;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: $radius-md;
   padding: $spacing-lg;
 
@@ -41,30 +41,30 @@
     font-family: $font-display;
     font-size: 1.1rem;
     letter-spacing: 0.04em;
-    color: $color-green;
+    color: var(--color-green);
     margin-bottom: $spacing-md;
     padding-bottom: $spacing-sm;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border);
   }
 
   h3 {
     font-size: 0.9rem;
     font-weight: 600;
-    color: $color-text;
+    color: var(--color-text);
     margin-top: $spacing-md;
     margin-bottom: $spacing-sm;
   }
 
   p {
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     font-size: 0.875rem;
     line-height: 1.7;
     margin-bottom: $spacing-sm;
 
-    strong { color: $color-text; }
+    strong { color: var(--color-text); }
 
     a {
-      color: $color-green;
+      color: var(--color-green);
       text-decoration: none;
       &:hover { text-decoration: underline; }
     }
@@ -82,35 +82,35 @@
     li {
       display: flex;
       gap: $spacing-sm;
-      color: $color-text-muted;
+      color: var(--color-text-muted);
       font-size: 0.875rem;
       line-height: 1.5;
 
       &::before {
         content: '›';
-        color: $color-green;
+        color: var(--color-green);
         font-weight: 700;
         flex-shrink: 0;
       }
 
-      strong { color: $color-text; }
+      strong { color: var(--color-text); }
     }
   }
 }
 
 .privacy-contact {
-  background: $color-green-glow;
-  border: 1px solid rgba($color-green, 0.3);
+  background: var(--color-green-glow);
+  border: 1px solid var(--rgba-green-0-3);
   border-radius: $radius-md;
   padding: $spacing-md $spacing-lg;
   text-align: center;
 
   p {
     font-size: 0.875rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
 
     a {
-      color: $color-green;
+      color: var(--color-green);
       text-decoration: none;
       font-weight: 600;
     }

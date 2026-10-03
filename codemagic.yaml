@@ -1,0 +1,35 @@
+workflows:
+  ios-unsigned:
+    name: U-GYM iOS (AltStore)
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      node: 20
+      xcode: latest
+    scripts:
+      - name: Install dependencies and build web app
+        script: |
+          npm ci
+          npm run build
+      - name: Create and sync iOS project
+        script: |
+          npx cap add ios
+          npx cap sync ios
+      - name: Build unsigned iOS app
+        script: |
+          xcodebuild \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build/ios \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+      - name: Package IPA for AltStore
+        script: |
+          mkdir -p build/unsigned-ipa/Payload
+          cp -R build/ios/Build/Products/Release-iphoneos/App.app build/unsigned-ipa/Payload/App.app
+          cd build/unsigned-ipa
+          zip -qr ../U-GYM-unsigned.ipa Payload
+    artifacts:
+      - build/U-GYM-unsigned.ipa

@@ -66,3 +66,27 @@ npm run dev
 ```
 
 L'app usa la porta 3000 e il portale la 3001.
+
+## 5. Push notifications su Android (app ibrida Capacitor)
+
+U-GYM è un'app ibrida: il codice principale è Web/React, ma quando viene installata come app Android esiste anche un progetto nativo. Per il push Android Capacitor usa Firebase Cloud Messaging.
+
+1. Firebase Console -> `u-gym-52fce` -> Impostazioni progetto -> Le tue app.
+2. Se non esiste ancora, aggiungi una **app Android** con package name esatto:
+   `com.ugym.app`
+3. Scarica `google-services.json`.
+4. Copialo in:
+   `android/app/google-services.json`
+5. Dalla root:
+   `npm install`
+   `npx cap sync`
+6. Apri Android Studio con:
+   `npx cap open android`
+
+Il codice cliente registra il token FCM in `users/{uid}/devices/{deviceId}`.
+
+> La registrazione del token non invia da sola i messaggi. L'invio automatico delle push (chat, promozioni, eventi, ecc.) verrà collegato al backend/portale palestra con Firebase Admin SDK/Cloud Functions.
+
+## 6. Posizione
+
+Su Android il progetto dichiara `ACCESS_COARSE_LOCATION` e `ACCESS_FINE_LOCATION`. La schermata Palestre richiede il permesso al momento del tap su **Usa la mia posizione** e ordina le sedi per distanza quando ogni palestra ha `latitude` e `longitude`.

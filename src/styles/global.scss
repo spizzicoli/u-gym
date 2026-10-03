@@ -4,25 +4,28 @@
   padding: 0;
 }
 
-:root {
-  --color-bg:          #{$color-bg};
-  --color-surface:     #{$color-surface};
-  --color-surface-2:   #{$color-surface-2};
-  --color-border:      #{$color-border};
-  --color-green:       #{$color-green};
-  --color-green-dark:  #{$color-green-dark};
-  --color-green-glow:  #{$color-green-glow};
-  --color-text:        #{$color-text};
-  --color-text-muted:  #{$color-text-muted};
-  --color-text-dim:    #{$color-text-dim};
-  --color-danger:      #{$color-danger};
-  --nav-height:        #{$nav-height};
+ :root {
+  --color-bg:#111214;
+  --color-surface:#1a1c1f;
+  --color-surface-2:#222528;
+  --color-border:#2a2d32;
+  --color-green:#3ddc84;
+  --brand-green:#3ddc84;
+  --brand-green-dark:#2bb56a;
+  --color-green-dark:#2bb56a;
+  --color-green-glow:rgba(61,220,132,.15);
+  --color-text:#f0f0f0;
+  --color-text-muted:#8a8f99;
+  --color-text-dim:#4a4f5a;
+  --color-danger:#ff4d4f;
+  --color-warning:#faad14;
+  --nav-height:#{$nav-height};
 }
 
 html, body {
   height: 100%;
-  background: $color-bg;
-  color: $color-text;
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: $font-body;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -39,7 +42,7 @@ html, body {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: $color-border; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
 
 /* Utilities */
 .page-container {
@@ -53,22 +56,22 @@ html, body {
   font-family: $font-display;
   font-size: 2.4rem;
   letter-spacing: 0.04em;
-  color: $color-text;
+  color: var(--color-text);
   margin-bottom: $spacing-lg;
   
   span {
-    color: $color-green;
+    color: var(--color-green);
   }
 }
 
 .card {
-  background: $color-surface;
-  border: 1px solid $color-border;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: $radius-md;
   padding: $spacing-lg;
   
   &--highlight {
-    border-color: rgba($color-green, 0.3);
+    border-color: var(--rgba-green-0-3);
     box-shadow: $shadow-green;
   }
 }
@@ -76,8 +79,8 @@ html, body {
 .btn-primary {
   width: 100%;
   padding: $spacing-md $spacing-lg;
-  background: $color-green;
-  color: $color-bg;
+  background: var(--action-color, var(--brand-green));
+  color: #08110c;
   border: none;
   border-radius: $radius-sm;
   font-family: $font-display;
@@ -87,7 +90,7 @@ html, body {
   transition: all $transition-fast;
   
   &:hover {
-    background: $color-green-dark;
+    background: var(--action-color-dark, var(--brand-green-dark));
     transform: translateY(-1px);
     box-shadow: $shadow-green;
   }
@@ -107,8 +110,8 @@ html, body {
   width: 100%;
   padding: $spacing-md $spacing-lg;
   background: transparent;
-  color: $color-green;
-  border: 1px solid $color-green;
+  color: var(--color-green);
+  border: 1px solid var(--color-green);
   border-radius: $radius-sm;
   font-family: $font-display;
   font-size: 1.1rem;
@@ -117,7 +120,7 @@ html, body {
   transition: all $transition-fast;
   
   &:hover {
-    background: $color-green-glow;
+    background: var(--color-green-glow);
   }
 }
 
@@ -136,8 +139,8 @@ html, body {
   right: 0;
   bottom: 0;
   width: min(380px, 92vw);
-  background: $color-surface;
-  border-left: 1px solid $color-border;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
   z-index: 201;
   display: flex;
   flex-direction: column;
@@ -149,17 +152,17 @@ html, body {
     align-items: center;
     justify-content: space-between;
     padding: $spacing-lg;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border);
     position: sticky;
     top: 0;
-    background: $color-surface;
+    background: var(--color-surface);
     z-index: 1;
   }
   
   &__title {
     font-family: $font-display;
     font-size: 1.5rem;
-    color: $color-text;
+    color: var(--color-text);
     letter-spacing: 0.05em;
   }
   
@@ -169,16 +172,16 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $color-surface-2;
-    border: 1px solid $color-border;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
     border-radius: $radius-sm;
     cursor: pointer;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     transition: all $transition-fast;
     
     &:hover {
-      color: $color-text;
-      border-color: $color-green;
+      color: var(--color-text);
+      border-color: var(--color-green);
     }
   }
   
@@ -205,31 +208,89 @@ html, body {
 
 // MUI overrides
 .MuiOutlinedInput-root {
-  color: $color-text !important;
+  color: var(--color-text) !important;
   
   .MuiOutlinedInput-notchedOutline {
-    border-color: $color-border !important;
+    border-color: var(--color-border) !important;
   }
   
   &:hover .MuiOutlinedInput-notchedOutline {
-    border-color: $color-green !important;
+    border-color: var(--color-green) !important;
   }
   
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: $color-green !important;
+    border-color: var(--color-green) !important;
   }
   
-  input { color: $color-text !important; }
+  input { color: var(--color-text) !important; }
 }
 
 .MuiInputLabel-root {
-  color: $color-text-muted !important;
+  color: var(--color-text-muted) !important;
   
-  &.Mui-focused { color: $color-green !important; }
+  &.Mui-focused { color: var(--color-green) !important; }
 }
 
 .MuiCheckbox-root {
-  color: $color-border !important;
+  color: var(--color-border) !important;
   
-  &.Mui-checked { color: $color-green !important; }
+  &.Mui-checked { color: var(--color-green) !important; }
+}
+
+/* Runtime palettes selected from Profilo. Existing SCSS remains compatible while key surfaces update live. */
+ :root[data-theme="green"] {
+  --action-color:#3ddc84; --action-color-dark:#2bb56a;
+  --color-green: #3ddc84; --color-green-dark:#2bb56a; --color-green-glow:rgba(61,220,132,.15);
+  --rgba-green-0-03:rgba(61,220,132,.03); --rgba-green-0-05:rgba(61,220,132,.05); --rgba-green-0-2:rgba(61,220,132,.2); --rgba-green-0-25:rgba(61,220,132,.25); --rgba-green-0-3:rgba(61,220,132,.3); --rgba-green-0-35:rgba(61,220,132,.35); --rgba-green-0-4:rgba(61,220,132,.4);
+}
+:root[data-theme="ocean"] { --color-bg:#08141c; --color-surface:#0e202b; --color-surface-2:#15313f; --color-border:#234353; --color-text:#eaf8ff; --color-text-muted:#8eb4c8; --color-text-dim:#507083; }
+:root[data-theme="violet"] { --color-bg:#120d1b; --color-surface:#1d1528; --color-surface-2:#2a1d39; --color-border:#3c2b50; --color-text:#f6efff; --color-text-muted:#b8a4c8; --color-text-dim:#735f86; }
+:root[data-theme="sunset"] { --color-bg:#1a1010; --color-surface:#261818; --color-surface-2:#362020; --color-border:#4b2c2c; --color-text:#fff3ed; --color-text-muted:#c9a59b; --color-text-dim:#8a625a; }
+:root[data-theme] body, :root[data-theme] #root { background:var(--color-bg); color:var(--color-text); }
+:root[data-theme] .card, :root[data-theme] .settings-card { background:var(--color-surface); border-color:var(--color-border); }
+
+/* Runtime palette tokens. Component styles consume these variables so a theme
+   change is applied immediately across routes without rebuilding the app. */
+:root {
+  --color-green: #3ddc84;
+  --color-green-dark: #2bb56a;
+  --color-green-glow: rgba(61,220,132,.15);
+  --rgba-green-0-03: rgba(61,220,132,.03);
+  --rgba-green-0-05: rgba(61,220,132,.05);
+  --rgba-green-0-2: rgba(61,220,132,.2);
+  --rgba-green-0-25: rgba(61,220,132,.25);
+  --rgba-green-0-3: rgba(61,220,132,.3);
+  --rgba-green-0-35: rgba(61,220,132,.35);
+  --rgba-green-0-4: rgba(61,220,132,.4);
+  --rgba-bg-0-8: rgba(17,18,20,.8);
+  --rgba-surface-0-96: rgba(26,28,31,.96);
+  --rgba-border-0-5: rgba(42,45,50,.5);
+  --rgba-text-dim-0-15: rgba(74,79,90,.15);
+  --rgba-danger-0-1: rgba(255,77,79,.1);
+  --rgba-danger-0-2: rgba(255,77,79,.2);
+  --rgba-warning-0-1: rgba(250,173,20,.1);
+  --rgba-warning-0-3: rgba(250,173,20,.3);
+}
+ :root[data-theme="green"] {
+  --action-color:#3ddc84; --action-color-dark:#2bb56a; --brand-green:#3ddc84; --brand-green-dark:#2bb56a;
+  --color-green: #3ddc84; --color-green-dark:#2bb56a; --color-green-glow:rgba(61,220,132,.15);
+  --rgba-green-0-03:rgba(61,220,132,.03); --rgba-green-0-05:rgba(61,220,132,.05); --rgba-green-0-2:rgba(61,220,132,.2); --rgba-green-0-25:rgba(61,220,132,.25); --rgba-green-0-3:rgba(61,220,132,.3); --rgba-green-0-35:rgba(61,220,132,.35); --rgba-green-0-4:rgba(61,220,132,.4);
+}
+:root[data-theme="ocean"] {
+  --action-color:#38bdf8; --action-color-dark:#1596d0;
+  --color-green: #38bdf8; --color-green-dark:#1596d0; --color-green-glow:rgba(56,189,248,.15);
+  --rgba-green-0-03:rgba(56,189,248,.03); --rgba-green-0-05:rgba(56,189,248,.05); --rgba-green-0-2:rgba(56,189,248,.2); --rgba-green-0-25:rgba(56,189,248,.25); --rgba-green-0-3:rgba(56,189,248,.3); --rgba-green-0-35:rgba(56,189,248,.35); --rgba-green-0-4:rgba(56,189,248,.4);
+  --rgba-bg-0-8:rgba(8,20,28,.8); --rgba-surface-0-96:rgba(14,32,43,.96); --rgba-border-0-5:rgba(35,67,83,.5);
+}
+:root[data-theme="violet"] {
+  --action-color:#a78bfa; --action-color-dark:#8765e8;
+  --color-green: #a78bfa; --color-green-dark:#8765e8; --color-green-glow:rgba(167,139,250,.15);
+  --rgba-green-0-03:rgba(167,139,250,.03); --rgba-green-0-05:rgba(167,139,250,.05); --rgba-green-0-2:rgba(167,139,250,.2); --rgba-green-0-25:rgba(167,139,250,.25); --rgba-green-0-3:rgba(167,139,250,.3); --rgba-green-0-35:rgba(167,139,250,.35); --rgba-green-0-4:rgba(167,139,250,.4);
+  --rgba-bg-0-8:rgba(18,13,27,.8); --rgba-surface-0-96:rgba(29,21,40,.96); --rgba-border-0-5:rgba(60,43,80,.5);
+}
+:root[data-theme="sunset"] {
+  --action-color:#fb7185; --action-color-dark:#e2556a;
+  --color-green: #fb7185; --color-green-dark:#e2556a; --color-green-glow:rgba(251,113,133,.15);
+  --rgba-green-0-03:rgba(251,113,133,.03); --rgba-green-0-05:rgba(251,113,133,.05); --rgba-green-0-2:rgba(251,113,133,.2); --rgba-green-0-25:rgba(251,113,133,.25); --rgba-green-0-3:rgba(251,113,133,.3); --rgba-green-0-35:rgba(251,113,133,.35); --rgba-green-0-4:rgba(251,113,133,.4);
+  --rgba-bg-0-8:rgba(26,16,16,.8); --rgba-surface-0-96:rgba(38,24,24,.96); --rgba-border-0-5:rgba(75,44,44,.5);
 }

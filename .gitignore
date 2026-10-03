@@ -7,3 +7,5 @@ android/app/build/
 android/capacitor-cordova-android-plugins/build/
 service-account*.json
 *firebase-adminsdk*.json
+/.env
+serviceAccountKey.json

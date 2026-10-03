@@ -19,6 +19,8 @@ import Profile from './pages/Profile';
 import BurgerMenu from './components/BurgerMenu';
 import BottomNav from './components/BottomNav';
 import CommunityPage from "./pages/CommunityPage";
+import HomeWorkout from './pages/HomeWorkout';
+import Progressi from './pages/Progressi';
 import SeedData from './pages/SeedData';
 import './styles/global.scss';
 
@@ -81,6 +83,8 @@ function AppRoutes() {
         <Route path="/eventi/:id" element={<EventDetail />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/community" element={<CommunityPage />} />
+        <Route path="/casa" element={<HomeWorkout />} />
+        <Route path="/progressi" element={<Progressi />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <BottomNav />

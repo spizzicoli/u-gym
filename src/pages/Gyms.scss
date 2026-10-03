@@ -2,7 +2,7 @@
 
 .gyms-page {
   min-height: 100dvh;
-  background: $color-bg;
+  background: var(--color-bg);
   padding: $spacing-lg $spacing-md;
   padding-bottom: 100px;
   overflow-y: auto;
@@ -18,8 +18,8 @@
   &__logo {
     width: 52px;
     height: 52px;
-    background: $color-green;
-    color: $color-bg;
+    background: var(--color-green);
+    color: var(--color-bg);
     border-radius: $radius-sm;
     display: flex;
     align-items: center;
@@ -34,12 +34,12 @@
     font-family: $font-display;
     font-size: 1.6rem;
     letter-spacing: 0.04em;
-    color: $color-text;
+    color: var(--color-text);
     line-height: 1.1;
   }
 
   &__sub {
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     font-size: 0.82rem;
     margin-top: 4px;
   }
@@ -57,17 +57,17 @@
   align-items: center;
   gap: $spacing-sm;
   padding: $spacing-sm $spacing-md;
-  background: $color-green-glow;
-  border: 1px solid rgba($color-green, 0.3);
+  background: var(--color-green-glow);
+  border: 1px solid var(--rgba-green-0-3);
   border-radius: $radius-sm;
-  color: $color-green;
+  color: var(--color-green);
   font-family: $font-body;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   transition: all $transition-fast;
 
-  &:hover { background: rgba($color-green, 0.2); }
+  &:hover { background: var(--rgba-green-0-2); }
   &:disabled { opacity: 0.6; cursor: not-allowed; }
 
   svg { font-size: 1.1rem; }
@@ -81,8 +81,8 @@
 
 .gym-card {
   width: 100%;
-  background: $color-surface;
-  border: 1px solid $color-border;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: $radius-md;
   padding: $spacing-md;
   cursor: pointer;
@@ -92,17 +92,18 @@
   overflow: hidden;
 
   &:hover {
-    border-color: rgba($color-green, 0.4);
+    border-color: var(--rgba-green-0-4);
     transform: translateX(2px);
   }
 
   &--selected {
-    border-color: $color-green;
-    background: linear-gradient(135deg, rgba($color-green, 0.05), $color-surface);
+    border-color: var(--color-green);
+    background: linear-gradient(135deg, var(--rgba-green-0-05), var(--color-surface));
     box-shadow: $shadow-green;
   }
 
   &--current {
+    .gym-card__right { padding-top: 22px; }
     &::before {
       content: 'ATTUALE';
       position: absolute;
@@ -110,9 +111,9 @@
       right: 8px;
       font-family: $font-mono;
       font-size: 0.6rem;
-      color: $color-green;
-      background: $color-green-glow;
-      border: 1px solid rgba($color-green, 0.3);
+      color: var(--color-green);
+      background: var(--color-green-glow);
+      border: 1px solid var(--rgba-green-0-3);
       padding: 2px 6px;
       border-radius: 4px;
     }
@@ -131,7 +132,7 @@
   &__name {
     font-family: $font-display;
     font-size: 1.15rem;
-    color: $color-text;
+    color: var(--color-text);
     letter-spacing: 0.03em;
     margin-bottom: 4px;
   }
@@ -140,7 +141,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
     font-size: 0.8rem;
   }
 
@@ -155,7 +156,7 @@
   &__distance {
     font-family: $font-mono;
     font-size: 0.8rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
   }
 
   &__status {
@@ -165,13 +166,13 @@
     border-radius: 20px;
     
     &.open {
-      color: $color-green;
-      background: $color-green-glow;
+      color: var(--color-green);
+      background: var(--color-green-glow);
     }
     
     &.closed {
-      color: $color-text-dim;
-      background: rgba($color-text-dim, 0.15);
+      color: var(--color-text-dim);
+      background: var(--rgba-text-dim-0-15);
     }
   }
 
@@ -179,7 +180,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid $color-border;
+    border-top: 1px solid var(--color-border);
     padding-top: $spacing-sm;
     margin-top: $spacing-sm;
   }
@@ -187,12 +188,12 @@
   &__hours {
     font-family: $font-mono;
     font-size: 0.78rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
   }
 
   &__members {
     font-size: 0.78rem;
-    color: $color-text-dim;
+    color: var(--color-text-dim);
   }
 
   &__check {
@@ -200,7 +201,7 @@
     top: 50%;
     right: $spacing-md;
     transform: translateY(-50%);
-    color: $color-green;
+    color: var(--color-green);
     font-size: 1.4rem;
     display: flex;
   }
@@ -208,12 +209,24 @@
 
 .gyms-confirm {
   position: fixed;
-  bottom: $nav-height + 10px;
+  z-index: 120;
+  bottom: calc(#{$nav-height} + 10px + env(safe-area-inset-bottom, 0px));
   left: 0;
   right: 0;
   padding: $spacing-md;
   padding-bottom: calc(#{$spacing-md} + #{$safe-bottom});
-  background: linear-gradient(to top, $color-bg 60%, transparent);
+  pointer-events: none;
+  background: linear-gradient(to top, var(--color-bg) 60%, transparent);
   
-  .btn-primary { font-size: 1rem; }
+  .btn-primary { font-size: 1rem; pointer-events: auto; position: relative; z-index: 1; }
+}
+.gyms-location-message { margin: 10px 0 4px; padding: 10px 12px; border-radius: 12px; background: var(--rgba-green-0-05); border: 1px solid var(--rgba-green-0-2); color: var(--color-text-muted); font-size: 12px; }
+
+
+/* U-Gym brand action: never inherit the previous theme color. */
+:root[data-theme="green"] .gyms-confirm .btn-primary {
+  background: #3ddc84 !important;
+  color: #07110b !important;
+  border: 1px solid #3ddc84 !important;
+  box-shadow: 0 8px 24px rgba(61,220,132,.22);
 }

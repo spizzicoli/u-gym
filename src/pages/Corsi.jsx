@@ -6,17 +6,19 @@ import PersonIcon from '@mui/icons-material/PersonRounded';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonthRounded';
 
 import { fetchCorsi } from '../lib/api';
+import { useApp } from '../context/AppContext';
 import './Corsi.scss';
 
 export default function Corsi() {
   const navigate = useNavigate();
+  const { selectedGym } = useApp();
   const [corsi, setCorsi] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
       try {
-        const data = await fetchCorsi();
+        const data = await fetchCorsi({ gymId: selectedGym?.id });
         setCorsi(data);
       } catch (err) {
         console.error('Errore nel recupero corsi:', err);
@@ -25,7 +27,7 @@ export default function Corsi() {
       }
     }
     load();
-  }, []);
+  }, [selectedGym?.id]);
 
   if (loading) {
     return (
@@ -49,12 +51,17 @@ export default function Corsi() {
           >
             <div className="corso-card__top">
               <h3 className="corso-card__name">{corso.name}</h3>
-              <span
-                className="corso-card__tag"
-                style={{ '--tag-color': corso.tag_color }}
-              >
-                {corso.tag}
-              </span>
+              <div className="corso-card__badges">
+                <span
+                  className="corso-card__tag"
+                  style={{ '--tag-color': corso.tag_color }}
+                >
+                  {corso.tag}
+                </span>
+                {corso.enrolled && (
+                  <span className="corso-card__enrolled">✓ Iscritto</span>
+                )}
+              </div>
             </div>
 
             <p className="corso-card__desc">
@@ -96,9 +103,6 @@ export default function Corsi() {
               </span>
             </div>
 
-            {corso.enrolled && (
-              <div className="corso-card__enrolled">✓ Iscritto</div>
-            )}
           </button>
         ))}
       </div>

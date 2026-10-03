@@ -4,23 +4,23 @@ import { auth, db } from '../lib/firebase';
 
 const seed = {
   gyms: {
-    'gym-milano': { name: 'U-GYM Milano', address: 'Milano', distance: '2,4 km', open: true, hours: '06:00 - 22:00', members: 248 },
-    'gym-monza': { name: 'U-GYM Monza', address: 'Monza', distance: '8,1 km', open: true, hours: '06:00 - 22:00', members: 176 },
-    'gym-torino': { name: 'U-GYM Torino', address: 'Torino', distance: '145 km', open: false, hours: '07:00 - 21:00', members: 119 },
+    'gym-milano': { name: 'U-GYM Milano', address: 'Milano', latitude: 45.4642, longitude: 9.1900, distance: '2,4 km', open: true, hours: '06:00 - 22:00', members: 248 },
+    'gym-monza': { name: 'U-GYM Monza', address: 'Monza', latitude: 45.5845, longitude: 9.2744, distance: '8,1 km', open: true, hours: '06:00 - 22:00', members: 176 },
+    'gym-torino': { name: 'U-GYM Torino', address: 'Torino', latitude: 45.0703, longitude: 7.6869, distance: '145 km', open: false, hours: '07:00 - 21:00', members: 119 },
   },
   courses: {
-    'course-yoga': { name: 'Yoga Flow', coach: 'Elena Rossi', schedule: 'Lunedi e Mercoledi, 18:30', duration: '60 min', spots: 8, max_spots: 20, price: '12 euro', tag: 'BENESSERE', tag_color: '#76c893', description: 'Respirazione, mobilita e rilassamento.', enrolled: 12 },
-    'course-functional': { name: 'Functional Training', coach: 'Marco Bianchi', schedule: 'Martedi e Giovedi, 19:00', duration: '50 min', spots: 4, max_spots: 16, price: '15 euro', tag: 'ENERGY', tag_color: '#f4a261', description: 'Allenamento dinamico per tutto il corpo.', enrolled: 12 },
+    'course-yoga': { gym_id: 'gym-milano', name: 'Yoga Flow', coach: 'Elena Rossi', schedule: 'Lunedi e Mercoledi, 18:30', duration: '60 min', spots: 8, max_spots: 20, price: '12 euro', tag: 'BENESSERE', tag_color: '#76c893', description: 'Respirazione, mobilita e rilassamento.', enrolled: 12 },
+    'course-functional': { gym_id: 'gym-milano', name: 'Functional Training', coach: 'Marco Bianchi', schedule: 'Martedi e Giovedi, 19:00', duration: '50 min', spots: 4, max_spots: 16, price: '15 euro', tag: 'ENERGY', tag_color: '#f4a261', description: 'Allenamento dinamico per tutto il corpo.', enrolled: 12 },
   },
   scheda_days: {
-    'day-push': { day: 'Push', sort_order: 1 },
-    'day-pull': { day: 'Pull', sort_order: 2 },
-    'day-legs': { day: 'Legs', sort_order: 3 },
+    'day-push': { gym_id: 'gym-milano', day: 'Push', sort_order: 1 },
+    'day-pull': { gym_id: 'gym-milano', day: 'Pull', sort_order: 2 },
+    'day-legs': { gym_id: 'gym-milano', day: 'Legs', sort_order: 3 },
   },
   exercises: {
-    'exercise-bench': { scheda_day_id: 'day-push', name: 'Panca piana', sets: '4 x 8', weight: '60 kg', muscle: 'Petto', gif_url: '', sort_order: 1 },
-    'exercise-row': { scheda_day_id: 'day-pull', name: 'Rematore', sets: '4 x 10', weight: '40 kg', muscle: 'Dorso', gif_url: '', sort_order: 1 },
-    'exercise-squat': { scheda_day_id: 'day-legs', name: 'Squat', sets: '4 x 8', weight: '70 kg', muscle: 'Gambe', gif_url: '', sort_order: 1 },
+    'exercise-bench': { gym_id: 'gym-milano', scheda_day_id: 'day-push', name: 'Panca piana', sets: '4 x 8', weight: '60 kg', muscle: 'Petto', gif_url: '/exercise-gifs/panca-piana.gif', sort_order: 1 },
+    'exercise-row': { gym_id: 'gym-milano', scheda_day_id: 'day-pull', name: 'Rematore', sets: '4 x 10', weight: '40 kg', muscle: 'Dorso', gif_url: '/exercise-gifs/rematore.gif', sort_order: 1 },
+    'exercise-squat': { gym_id: 'gym-milano', scheda_day_id: 'day-legs', name: 'Squat', sets: '4 x 8', weight: '70 kg', muscle: 'Gambe', gif_url: '/exercise-gifs/squat.gif', sort_order: 1 },
   },
   occupancy: {
     'milano-08': { gym_id: 'gym-milano', hour: 8, percentage: 32 },
@@ -29,13 +29,13 @@ const seed = {
     'milano-21': { gym_id: 'gym-milano', hour: 21, percentage: 41 },
   },
   promos: {
-    'promo-welcome': { title: 'Porta un amico', short_description: 'Una settimana per voi due.', description: 'Invita un amico e ricevete entrambi una settimana gratuita.', image_url: '', expires_at: '2026-12-31', active: true, created_at: new Date().toISOString() },
+    'promo-welcome': { gym_id: 'gym-milano', title: 'Porta un amico', short_description: 'Una settimana per voi due.', description: 'Invita un amico e ricevete entrambi una settimana gratuita.', image_url: '', expires_at: '2026-12-31', active: true, created_at: new Date().toISOString() },
   },
   events: {
-    'event-open-day': { title: 'Open Day U-GYM', date: '2026-10-10', location: 'U-GYM Milano', short_description: 'Prova gratuita e tour della palestra.', description: 'Una giornata dedicata a nuovi corsi, trainer e consulenze.', created_at: new Date().toISOString() },
+    'event-open-day': { gym_id: 'gym-milano', title: 'Open Day U-GYM', date: '2026-10-10', location: 'U-GYM Milano', short_description: 'Prova gratuita e tour della palestra.', description: 'Una giornata dedicata a nuovi corsi, trainer e consulenze.', created_at: new Date().toISOString() },
   },
   notifications: {
-    'notification-welcome': { type: 'info', title: 'Benvenuto in U-GYM', body: 'Scegli un corso e inizia il tuo percorso.', created_at: new Date().toISOString() },
+    'notification-welcome': { gym_id: 'gym-milano', type: 'info', title: 'Benvenuto in U-GYM', body: 'Scegli un corso e inizia il tuo percorso.', created_at: new Date().toISOString() },
   },
 };
 

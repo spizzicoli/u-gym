@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { fetchPromos } from '../lib/api';
+import { useApp } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import './PromoList.scss';
 
 export default function PromoList() {
   const [promos, setPromos] = useState([]);
+  const { selectedGym } = useApp();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchPromos().then(setPromos);
-  }, []);
+    fetchPromos({ gymId: selectedGym?.id }).then(setPromos);
+  }, [selectedGym?.id]);
 
   return (
     <div className="promo-list page-container">

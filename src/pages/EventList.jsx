@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchEvents } from '../lib/api';
+import { useApp } from '../context/AppContext';
 import './EventList.scss';
 
 export default function EventList() {
   const [events, setEvents] = useState([]);
+  const { selectedGym } = useApp();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchEvents().then(setEvents).catch(console.error);
-  }, []);
+    fetchEvents({ gymId: selectedGym?.id }).then(setEvents).catch(console.error);
+  }, [selectedGym?.id]);
 
   return (
     <div className="page-container event-list">

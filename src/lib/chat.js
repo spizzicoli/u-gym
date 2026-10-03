@@ -1,27 +1,33 @@
 import {
   addDoc,
   collection,
+  limit,
   onSnapshot,
   query,
   where,
 } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { db, storage } from './firebase';
+import { db } from './firebase';
 
 const normalizeMessage = (snapshot) => {
   const data = snapshot.data();
   return {
     id: snapshot.id,
     ...data,
-    created_at: data.created_at?.toDate?.()?.toISOString() || data.created_at,
+    created_at: data.created_at?.toDate?.()?.toISOString() || data.created_at || new Date().toISOString(),
     username: data.username || 'Utente',
   };
 };
 
-export function subscribeToMessages(collectionName, trainerId, onMessages, onError) {
-  const constraints = trainerId ? [where('trainer_id', '==', trainerId)] : [];
-  const messagesQuery = query(collection(db, collectionName), ...constraints);
-
+export function subscribeToMessages({ type = 'community', userId, trainerId = null, gymId = null, onMessages, onError }) {
+  const constraints = [];
+  if (type === 'trainer') {
+    if (!userId || !trainerId) return () => {};
+    constraints.push(where('user_id', '==', userId), where('trainer_id', '==', trainerId));
+  } else if (gymId) {
+    constraints.push(where('gym_id', '==', gymId));
+  }
+  constraints.push(limit(60));
+  const messagesQuery = query(collection(db, type === 'trainer' ? 'pt_messages' : 'community_messages'), ...constraints);
   return onSnapshot(messagesQuery, (snapshot) => {
     const messages = snapshot.docs
       .map(normalizeMessage)
@@ -31,15 +37,13 @@ export function subscribeToMessages(collectionName, trainerId, onMessages, onErr
 }
 
 export async function sendChatMessage(collectionName, message) {
+  // Firestore stores emoji and Unicode text safely as strings; trim only surrounding whitespace.
+  const safeMessage = typeof message.message === 'string'
+    ? { ...message, message: message.message.trim() }
+    : message;
   const result = await addDoc(collection(db, collectionName), {
-    ...message,
+    ...safeMessage,
     created_at: new Date().toISOString(),
   });
-  return { id: result.id, ...message };
-}
-
-export async function uploadChatFile(file, userId, conversation) {
-  const fileRef = ref(storage, `chat-images/${conversation}/${userId}-${Date.now()}-${file.name}`);
-  await uploadBytes(fileRef, file);
-  return getDownloadURL(fileRef);
+  return { id: result.id, ...safeMessage };
 }

@@ -1,0 +1,56 @@
+.home-workout__hero { padding: 8px 0 18px; }
+.home-workout__eyebrow { font-size:10px; font-weight:800; letter-spacing:.12em; color:var(--color-green); }
+.home-workout__hero h1 { margin:6px 0 8px; font-size:30px; }
+.home-workout__hero h1 span { color:var(--color-green); }
+.home-workout__hero p { margin:0; color:var(--color-text-muted); line-height:1.5; }
+.home-workout__chooser { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+.home-workout__choose,.home-workout__random { width:100%; padding:13px; border:0; border-radius:14px; font-weight:800; cursor:pointer; }
+.home-workout__choose { background:var(--accent,var(--color-green)); color:#07110b; }
+.home-workout__random { border:1px solid var(--color-border); background:var(--color-surface-2); color:var(--color-text); }
+.home-workout__choose:disabled,.home-workout__random:disabled { opacity:.5; cursor:not-allowed; }
+.home-workout__empty,.home-workout__error { margin:0; padding:12px; border-radius:12px; background:var(--color-surface); color:var(--color-text-muted); font-size:12px; }
+.home-workout__error { color:#ff8a8a; }
+.home-workout__exercise-options { display:flex; flex-direction:column; }
+.home-workout__exercise-options .MuiFormControlLabel-root { margin:0; padding:5px 0; border-bottom:1px solid var(--color-border); }
+.home-workout__exercise-option { display:flex; flex-direction:column; gap:3px; }
+.home-workout__exercise-option small { color:var(--color-text-muted); font-size:11px; }
+.home-workout__progress { display:flex; justify-content:space-between; align-items:center; padding:14px; margin-bottom:14px; border:1px solid var(--color-border); border-radius:16px; background:var(--color-surface); }
+.home-workout__progress div { display:flex; align-items:center; gap:8px; }
+.home-workout__progress strong { color:var(--color-green); font-size:18px; }
+.home-workout__progress span { color:var(--color-text-muted); font-size:11px; }
+.home-workout__progress svg { color:var(--color-green); font-size:18px; }
+.home-workout__list { display:flex; flex-direction:column; gap:9px; }
+.home-ex { display:flex; align-items:center; width:100%; text-align:left; padding:14px; border:1px solid var(--color-border); border-radius:16px; background:var(--color-surface); color:var(--color-text); cursor:pointer; }
+.home-ex.done { border-color:rgba(61,220,132,.35); background:rgba(61,220,132,.07); }
+.home-ex__num { width:30px; height:30px; display:grid; place-items:center; border-radius:50%; background:var(--color-surface-2); color:var(--color-green); font-weight:800; margin-right:12px; }
+.home-ex__body { flex:1; min-width:0; }
+.home-ex__body strong,.home-ex__body span,.home-ex__body small { display:block; }
+.home-ex__body span { margin-top:2px; color:var(--color-text-muted); font-size:11px; }
+.home-ex__body small { margin-top:7px; color:var(--color-text-dim); font-size:10px; }
+.home-ex__check { color:var(--color-text-dim); }
+.home-ex.done .home-ex__check { color:var(--color-green); }
+.home-workout__complete { margin-top:14px; padding:15px; text-align:center; border-radius:14px; background:var(--rgba-green-0-05); color:var(--color-green); font-weight:700; }
+
+.home-timer { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding:16px; border:1px solid var(--color-border); border-radius:18px; background:var(--color-surface); }
+.home-timer span,.home-timer small { display:block; color:var(--color-text-muted); font-size:10px; }
+.home-timer strong { display:block; font-family:$font-mono; font-size:32px; color:var(--accent,var(--color-green)); margin:2px 0; }
+.home-timer__actions { display:flex; gap:7px; }
+.home-timer__actions button { border:1px solid var(--color-border); background:var(--color-surface-2); color:var(--color-text); border-radius:12px; padding:9px 11px; display:flex; align-items:center; gap:4px; font-weight:700; }
+.home-timer__actions button:first-child { background:var(--accent,var(--color-green)); color:#07110b; border-color:transparent; }
+.home-complete-btn { width:100%; margin-top:13px; padding:13px; border:0; border-radius:14px; background:var(--accent,var(--color-green)); color:#07110b; font-weight:900; }
+.home-history,.home-reminder { margin-top:14px; padding:16px; border:1px solid var(--color-border); border-radius:18px; background:var(--color-surface); }
+.home-history__head { display:flex; justify-content:space-between; align-items:center; }
+.home-history h2 { font-size:18px; margin-top:3px; }
+.home-history__head > strong { font-size:28px; color:var(--accent,var(--color-green)); }
+.home-history p { color:var(--color-text-muted); font-size:12px; margin-top:7px; }
+.week-dots { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:14px; }
+.week-dots span { height:34px; display:grid; place-items:center; border-radius:10px; background:var(--color-surface-2); color:var(--color-text-dim); font-size:11px; font-weight:800; }
+.week-dots span.active { background:var(--accent,var(--color-green)); color:#07110b; }
+.home-reminder__title { display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+.home-reminder__title svg { color:var(--accent,var(--color-green)); }
+.home-reminder__title strong,.home-reminder__title small { display:block; }
+.home-reminder__title small { color:var(--color-text-muted); font-size:10px; margin-top:2px; }
+.home-reminder input { width:100%; padding:11px; border:1px solid var(--color-border); border-radius:12px; background:#111214; color:var(--color-text); }
+.home-reminder button { width:100%; margin-top:8px; padding:11px; border:0; border-radius:12px; background:var(--color-surface-2); color:var(--color-text); font-weight:800; }
+.home-reminder button:disabled { opacity:.45; }
+.reminder-msg { display:block; color:var(--accent,var(--color-green)); margin-top:8px; font-size:11px; }

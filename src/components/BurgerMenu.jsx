@@ -8,6 +8,8 @@ import LocalOfferIcon from '@mui/icons-material/LocalOfferRounded';
 import EventIcon from '@mui/icons-material/EventRounded';
 import PersonIcon from '@mui/icons-material/PersonRounded';
 import GroupsIcon from '@mui/icons-material/Groups';
+import SelfImprovementIcon from '@mui/icons-material/SelfImprovementRounded';
+import InsightsIcon from '@mui/icons-material/InsightsRounded';
 import './BurgerMenu.scss';
 
 const LINKS = [
@@ -16,6 +18,8 @@ const LINKS = [
   { to: '/promo', label: 'Promo', icon: <LocalOfferIcon /> },
   { to: '/eventi', label: 'Eventi', icon: <EventIcon /> },
   { to: '/community', label: 'Community', icon: <GroupsIcon /> },
+  { to: '/casa', label: 'Allenamento Casa', icon: <SelfImprovementIcon /> },
+  { to: '/progressi', label: 'Progressi & Benessere', icon: <InsightsIcon /> },
   { to: '/profile', label: 'Profilo', icon: <PersonIcon /> },
 ];
 

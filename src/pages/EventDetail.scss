@@ -36,7 +36,7 @@
     padding: 0.8rem 1rem;
     border-radius: 999px;
     border: none;
-    background: #3ddc84;
+    background: var(--color-green);
     color: #000;
     font-weight: 600;
     font-size: 1rem;
@@ -53,3 +53,13 @@
     }
   }
 }
+
+.calendar-success { margin:12px 0; padding:10px 12px; border-radius:12px; background:var(--rgba-green-0-05); color:var(--color-green); font-size:12px; font-weight:700; text-align:center; }
+.modal-backdrop { position:fixed; inset:0; z-index:500; display:grid; place-items:end center; padding:16px; background:rgba(0,0,0,.68); backdrop-filter:blur(5px); }
+.calendar-modal { width:min(430px,100%); padding:22px; border-radius:22px; background:#1a1c1f; border:1px solid #2a2d32; box-shadow:0 24px 80px rgba(0,0,0,.5); text-align:center; }
+.calendar-modal__icon { width:54px; height:54px; margin:0 auto 10px; display:grid; place-items:center; border-radius:16px; background:var(--rgba-green-0-2); color:var(--color-green); }
+.calendar-modal h2 { font-size:20px; margin-bottom:8px; }
+.calendar-modal p { color:#8a8f99; line-height:1.5; font-size:13px; margin-bottom:18px; }
+.calendar-modal button { width:100%; border:0; border-radius:13px; padding:13px; background:var(--color-green); color:#08110c; font-weight:800; }
+.calendar-modal button.secondary { margin-top:8px; background:#222528; color:#f0f0f0; }
+.calendar-error { color:#ff7072; font-size:12px; margin-bottom:10px; }

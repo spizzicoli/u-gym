@@ -1,68 +1,46 @@
-import React, { useState } from "react";
-import { IconButton, TextField } from "@mui/material";
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import ImageIcon from "@mui/icons-material/Image";
-import MicIcon from "@mui/icons-material/Mic";
-import SendIcon from "@mui/icons-material/Send";
-import Picker from "@emoji-mart/react";
-import data from "@emoji-mart/data";
+import React, { useRef, useState } from 'react';
+import { IconButton } from '@mui/material';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import SendIcon from '@mui/icons-material/Send';
 
-export default function ChatInputBar({ onSendText, onSendImage, onSendAudio }) {
-  const [text, setText] = useState("");
+const QUICK_EMOJIS = ['😀','😂','😍','🔥','💪','👏','🙌','👍','❤️','🎯','🏋️','🏃','😅','🤝','🥳','😎','⚡','✨','🙏','👋'];
+
+export default function ChatInputBar({ onSendText, disabled = false }) {
+  const [text, setText] = useState('');
   const [showEmoji, setShowEmoji] = useState(false);
+  const inputRef = useRef(null);
 
-  const handleEmoji = (emoji) => {
-    setText((prev) => prev + emoji.native);
+  const submit = async () => {
+    const value = text.trim();
+    if (!value || disabled) return;
+    try { await onSendText(value, setText); setShowEmoji(false); } catch (e) { console.error('Invio messaggio:', e); }
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) onSendImage(file);
+  const addEmoji = emoji => {
+    setText(prev => `${prev}${emoji}`);
+    requestAnimationFrame(() => inputRef.current?.focus());
   };
 
   return (
-    <div className="chat-input-bar">
-      <IconButton onClick={() => setShowEmoji(!showEmoji)}>
-        <EmojiEmotionsIcon style={{ color: "#3ddc84" }} />
-      </IconButton>
-
-      <IconButton component="label">
-        <ImageIcon style={{ color: "#3ddc84" }} />
-        <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
-      </IconButton>
-
-      <IconButton onClick={onSendAudio}>
-        <MicIcon style={{ color: "#3ddc84" }} />
-      </IconButton>
-
-      <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Scrivi un messaggio..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && onSendText(text, setText)}
-        sx={{
-          flexGrow: 1,
-          background: "#1a1c1f",
-          borderRadius: "12px",
-          input: { color: "#f0f0f0" },
-          width: '80%',
-          marginLeft: '2%',
-          marginRight: '5%',
-          marginBottom: '15px',
-        }}
-      />
-
-      <IconButton onClick={() => onSendText(text, setText)}>
-        <SendIcon style={{ color: "#3ddc84" }} />
-      </IconButton>
-
-      {showEmoji && (
-        <div className="emoji-picker">
-          <Picker data={data} onEmojiSelect={handleEmoji} theme="dark" />
+    <div className="chat-input-shell">
+      {showEmoji && <div className="emoji-picker" role="dialog" aria-label="Emoji">
+        <div className="emoji-grid">{QUICK_EMOJIS.map(emoji => <button key={emoji} type="button" onClick={() => addEmoji(emoji)}>{emoji}</button>)}</div>
+      </div>}
+      <div className="chat-input-bar">
+        <IconButton onClick={() => setShowEmoji(v => !v)} disabled={disabled} aria-label="Emoji"><EmojiEmotionsIcon /></IconButton>
+        <div className="chat-text-wrap">
+          <input
+            ref={inputRef}
+            className="chat-text-input"
+            placeholder="Scrivi un messaggio"
+            value={text}
+            disabled={disabled}
+            onChange={e => setText(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); submit(); } }}
+          />
         </div>
-      )}
+        <IconButton onClick={submit} disabled={!text.trim() || disabled} aria-label="Invia"><SendIcon /></IconButton>
+      </div>
     </div>
   );
 }

@@ -1,10 +1,10 @@
  
 
-.badge-page { background: $color-bg; }
+.badge-page { background: var(--color-bg); }
 
 .badge-card {
-  background: linear-gradient(135deg, $color-surface 0%, rgba($color-green, 0.05) 100%);
-  border: 1px solid rgba($color-green, 0.3);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--rgba-green-0-05) 100%);
+  border: 1px solid var(--rgba-green-0-3);
   border-radius: $radius-lg;
   padding: $spacing-lg;
   margin-bottom: $spacing-lg;
@@ -21,8 +21,8 @@
   &__logo {
     width: 44px;
     height: 44px;
-    background: $color-green;
-    color: $color-bg;
+    background: var(--color-green);
+    color: var(--color-bg);
     border-radius: $radius-sm;
     display: flex;
     align-items: center;
@@ -37,12 +37,12 @@
     font-family: $font-display;
     font-size: 1.3rem;
     letter-spacing: 0.04em;
-    color: $color-text;
+    color: var(--color-text);
   }
 
   &__email {
     font-size: 0.78rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
   }
 
   &__status {
@@ -52,7 +52,7 @@
     align-items: center;
     gap: 4px;
     font-size: 0.72rem;
-    color: $color-green;
+    color: var(--color-green);
     font-weight: 600;
   }
 
@@ -62,7 +62,7 @@
     gap: $spacing-sm;
     margin-top: $spacing-lg;
     padding-top: $spacing-md;
-    border-top: 1px solid $color-border;
+    border-top: 1px solid var(--color-border);
   }
 }
 
@@ -76,9 +76,9 @@
 .badge-qr {
   position: relative;
   padding: $spacing-lg;
-  background: rgba($color-bg, 0.8);
+  background: var(--rgba-bg-0-8);
   border-radius: $radius-md;
-  border: 1px solid rgba($color-green, 0.2);
+  border: 1px solid var(--rgba-green-0-2);
 
   // Corner accents
   &::before, &::after {
@@ -86,7 +86,7 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    border-color: $color-green;
+    border-color: var(--color-green);
     border-style: solid;
   }
 
@@ -110,11 +110,11 @@
   left: 15%;
   right: 15%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, $color-green, transparent);
+  background: linear-gradient(90deg, transparent, var(--color-green), transparent);
   top: 50%;
   animation: scan 2.5s ease-in-out infinite;
   border-radius: 2px;
-  box-shadow: 0 0 8px $color-green;
+  box-shadow: 0 0 8px var(--color-green);
 }
 
 @keyframes scan {
@@ -129,20 +129,20 @@
   align-items: center;
   gap: $spacing-sm;
   font-size: 0.82rem;
-  color: $color-text-muted;
+  color: var(--color-text-muted);
 }
 
 .badge-refresh {
   text-align: center;
   font-size: 0.7rem;
-  color: $color-text-dim;
+  color: var(--color-text-dim);
   margin-top: $spacing-sm;
   font-style: italic;
 }
 
 .badge-membership {
-  background: $color-surface;
-  border: 1px solid $color-border;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: $radius-md;
   padding: $spacing-lg;
 
@@ -150,10 +150,10 @@
     font-family: $font-display;
     font-size: 1.2rem;
     letter-spacing: 0.04em;
-    color: $color-text;
+    color: var(--color-text);
     margin-bottom: $spacing-md;
     padding-bottom: $spacing-sm;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border);
   }
 
   &__row {
@@ -161,19 +161,20 @@
     justify-content: space-between;
     align-items: center;
     padding: $spacing-sm 0;
-    border-bottom: 1px solid rgba($color-border, 0.5);
+    border-bottom: 1px solid var(--rgba-border-0-5);
     font-size: 0.875rem;
-    color: $color-text-muted;
+    color: var(--color-text-muted);
 
     &:last-child { border-bottom: none; }
   }
 
   &__val {
-    color: $color-text;
+    color: var(--color-text);
     font-weight: 500;
     font-family: $font-mono;
     font-size: 0.82rem;
 
-    &--green { color: $color-green; }
+    &--green { color: var(--color-green); }
   }
 }
+.badge-section-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.badge-section-head .badge-membership__title{margin-bottom:0;border:0;padding:0}.expiry-chip{font-size:10px;font-weight:800;color:#ffb15c;background:rgba(250,173,20,.12);border:1px solid rgba(250,173,20,.25);padding:5px 8px;border-radius:999px}.badge-membership__val small{font-family:inherit;color:var(--color-text-muted);font-size:9px}.badge-membership__val--warning{color:#ffb15c}.attendance-toggle{display:flex;gap:6px;margin-top:14px}.attendance-toggle button{flex:1;padding:9px;border:1px solid var(--color-border);background:var(--color-surface-2);color:var(--color-text-muted);border-radius:10px;font-weight:700}.attendance-toggle button.active{background:var(--color-green-glow);border-color:var(--color-green);color:var(--color-green)}.renew-button{width:100%;margin-top:12px;padding:12px;border:0;border-radius:12px;background:var(--color-green);color:#08110c;font-weight:900}.renew-button:disabled{opacity:.6}.renew-note,.attendance-note{display:flex;align-items:center;gap:6px;color:var(--color-text-muted);font-size:11px;margin-top:8px}.badge-payments{margin-top:12px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:24px}.badge-payments .badge-section-head h3{font-size:1.1rem}.badge-payments .badge-section-head p{font-size:11px;color:var(--color-text-muted);margin-top:3px}.badge-payments .badge-section-head svg{color:var(--color-green)}.payments-empty{padding:18px 0;color:var(--color-text-muted);font-size:12px;line-height:1.5}.payment-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--color-border)}.payment-row:last-child{border-bottom:0}.payment-row strong,.payment-row small{display:block}.payment-row small{color:var(--color-text-muted);font-size:10px;margin-top:3px}.payment-row b{color:var(--color-text);white-space:nowrap}

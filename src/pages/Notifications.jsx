@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { fetchNotifications } from '../lib/api';
+import { useApp } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import './Notifications.scss';
 
 export default function Notifications() {
   const [items, setItems] = useState([]);
+  const { selectedGym } = useApp();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchNotifications().then(setItems).catch(console.error);
-  }, []);
+    fetchNotifications({ gymId: selectedGym?.id }).then(setItems).catch(console.error);
+  }, [selectedGym?.id]);
 
   function handleClick(n) {
     if (n.type === 'course' && n.ref_id) navigate(`/corsi/${n.ref_id}`);
