@@ -153,7 +153,7 @@ Per domande: [privacy@ugym.it](mailto:privacy@ugym.it)
 - Le cronologie chat sono limitate agli ultimi 60 messaggi.
 - Le liste Firestore principali sono limitate e filtrabili per `gym_id`.
 - La Home legge l'affluenza della palestra selezionata da Firestore.
-- La selezione palestra usa Capacitor Geolocation su Android/iOS e geolocation web nel browser.
+- La selezione palestra usa Capacitor Geolocation su Android/iOS e geolocation web nel browser; le distanze sono calcolate dalla posizione corrente in base alle coordinate Firestore.
 - La scheda salva localmente il completamento degli esercizi e il timer della sessione.
 - Allenamento Casa legge gli esercizi da Firestore e permette di selezionarli o generare una sessione casuale di quattro esercizi.
 - Le GIF demo sono in `public/exercise-gifs/`.

@@ -12,6 +12,29 @@ import { fetchGyms } from '../lib/api';
 import { getCurrentDevicePosition } from '../lib/native';
 import './Gyms.scss';
 
+function haversineDistanceKm(latitude, longitude, targetLatitude, targetLongitude) {
+  const earthRadiusKm = 6371;
+  const toRadians = value => value * Math.PI / 180;
+  const latitudeDifference = toRadians(targetLatitude - latitude);
+  const longitudeDifference = toRadians(targetLongitude - longitude);
+  const calculation = Math.sin(latitudeDifference / 2) ** 2
+    + Math.cos(toRadians(latitude))
+    * Math.cos(toRadians(targetLatitude))
+    * Math.sin(longitudeDifference / 2) ** 2;
+  return 2 * earthRadiusKm * Math.atan2(Math.sqrt(calculation), Math.sqrt(1 - calculation));
+}
+
+function hasValidCoordinates(gym) {
+  return typeof gym.latitude === 'number'
+    && Number.isFinite(gym.latitude)
+    && gym.latitude >= -90
+    && gym.latitude <= 90
+    && typeof gym.longitude === 'number'
+    && Number.isFinite(gym.longitude)
+    && gym.longitude >= -180
+    && gym.longitude <= 180;
+}
+
 export default function Gyms({ firstTime }) {
   const navigate = useNavigate();
   const { selectGym, selectedGym } = useApp();
@@ -35,31 +58,28 @@ export default function Gyms({ firstTime }) {
     } finally { setLocating(false); }
   };
 
-  const haversine = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; const toRad = v => v * Math.PI / 180;
-    const dLat = toRad(lat2 - lat1); const dLon = toRad(lon2 - lon1);
-    const a = Math.sin(dLat/2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2) ** 2;
-    return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  };
-
   const filtered = (gyms || []).filter(g =>
     String(g.name || '').toLowerCase().includes(query.toLowerCase()) ||
     String(g.address || '').toLowerCase().includes(query.toLowerCase())
   );
 
   const sortedGyms = [...filtered].map(g => {
-    const hasCoords = Number.isFinite(Number(g.latitude)) && Number.isFinite(Number(g.longitude)) && position;
-    if (!hasCoords) return g;
-    const distance = haversine(position.latitude, position.longitude, Number(g.latitude), Number(g.longitude));
-    return { ...g, distance_km: distance, distance: `${distance.toFixed(1)} km` };
+    if (!position || !hasValidCoordinates(g)) return g;
+    const distance = haversineDistanceKm(position.latitude, position.longitude, g.latitude, g.longitude);
+    return { ...g, distance_km: distance };
   }).sort((a, b) => {
-    if (position && Number.isFinite(a.distance_km) && Number.isFinite(b.distance_km)) return a.distance_km - b.distance_km;
+    if (position && Number.isFinite(a.distance_km) && Number.isFinite(b.distance_km)) {
+      return a.distance_km - b.distance_km;
+    }
+    if (position && Number.isFinite(a.distance_km)) return -1;
+    if (position && Number.isFinite(b.distance_km)) return 1;
     return String(a.name || '').localeCompare(String(b.name || ''));
   });
 
   const confirmGym = () => {
     if (!chosen) return;
-    selectGym(chosen);
+    const { distance_km, ...gym } = chosen;
+    selectGym(gym);
     navigate('/');
   };
 
@@ -115,7 +135,11 @@ export default function Gyms({ firstTime }) {
         </div>
       )}
 
-      {locationMessage && <div className="gyms-location-message">📍 {locationMessage}</div>}
+      {locationMessage && (
+        <div className="gyms-location-message">
+          📍 {locationMessage} Le distanze sono stime in linea d&apos;aria basate sulle coordinate della città.
+        </div>
+      )}
 
       <div className="gyms-list">
         {sortedGyms.map(gym => (
@@ -133,7 +157,11 @@ export default function Gyms({ firstTime }) {
                 </p>
               </div>
               <div className="gym-card__right">
-                {gym.distance && <span className="gym-card__distance">{gym.distance}</span>}
+                <span className="gym-card__distance">
+                  {Number.isFinite(gym.distance_km)
+                    ? `${gym.distance_km.toFixed(1)} km`
+                    : position ? 'Coordinate non disponibili' : 'Attiva posizione'}
+                </span>
                 <span className={`gym-card__status ${gym.open ? 'open' : 'closed'}`}>
                   {gym.open ? 'Aperta' : 'Chiusa'}
                 </span>

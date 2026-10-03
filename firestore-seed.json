@@ -5,7 +5,6 @@
             "address": "Milano",
             "latitude": 45.4642,
             "longitude": 9.19,
-            "distance": "2,4 km",
             "open": true,
             "hours": "06:00 - 22:00",
             "members": 248
@@ -15,7 +14,6 @@
             "address": "Monza",
             "latitude": 45.5845,
             "longitude": 9.2744,
-            "distance": "8,1 km",
             "open": true,
             "hours": "06:00 - 22:00",
             "members": 176
@@ -25,7 +23,6 @@
             "address": "Torino",
             "latitude": 45.0703,
             "longitude": 7.6869,
-            "distance": "145 km",
             "open": false,
             "hours": "07:00 - 21:00",
             "members": 119
