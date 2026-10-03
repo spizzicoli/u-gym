@@ -15,10 +15,12 @@ workflows:
         script: |
           npx cap add ios
           npx cap sync ios
+          cd ios/App
+          pod install
       - name: Build unsigned iOS app
         script: |
           xcodebuild \
-            -project ios/App/App.xcodeproj \
+            -workspace ios/App/App.xcworkspace \
             -scheme App \
             -configuration Release \
             -sdk iphoneos \
