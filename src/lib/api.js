@@ -20,6 +20,18 @@ import { auth, db } from './firebase';
 
 const toData = (snapshot) => ({ id: snapshot.id, ...snapshot.data() });
 const toPlainDate = (value) => (value?.toDate ? value.toDate().toISOString() : value || null);
+const AUTH_REQUEST_TIMEOUT_MS = 20000;
+
+function withAuthTimeout(promise) {
+  let timeoutId;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(
+      'Firebase non risponde. Controlla la connessione e riprova.'
+    )), AUTH_REQUEST_TIMEOUT_MS);
+  });
+
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timeoutId));
+}
 
 // Keep reads bounded. The old helper could download an entire collection on every screen.
 const getCollection = async (name, { sortField = null, direction = 'asc', max = 50, filters = [] } = {}) => {
@@ -61,14 +73,18 @@ export async function registerUser(username, email, password, role = 'client') {
 export async function loginUser(credential, password) {
   let email = credential.trim();
   if (!email.includes('@')) {
-    const snapshot = await getDocs(query(collection(db, 'users'), where('username', '==', email), limit(1)));
+    const snapshot = await withAuthTimeout(
+      getDocs(query(collection(db, 'users'), where('username', '==', email), limit(1)))
+    );
     if (snapshot.empty) throw new Error('Credenziali non valide');
     email = snapshot.docs[0].data().email;
   }
-  const result = await signInWithEmailAndPassword(auth, email, password);
-  const profileSnapshot = await getDoc(doc(db, 'users', result.user.uid));
-  const profile = profileSnapshot.exists() ? profileSnapshot.data() : { email: result.user.email, role: 'client' };
-  return userData(profile, result.user.uid);
+  const result = await withAuthTimeout(signInWithEmailAndPassword(auth, email, password));
+  return userData({
+    email: result.user.email,
+    username: result.user.displayName || result.user.email?.split('@')[0] || 'Atleta',
+    role: 'client',
+  }, result.user.uid);
 }
 
 export async function logoutUser() { await signOut(auth); }
