@@ -106,10 +106,10 @@ export default function Profile() {
           <input type="checkbox" checked={reminders} onChange={e => setReminders(e.target.checked)} />
         </label>
         {reminders &&
-          <div className="reminder-row" style={{ maxWidth: '100%'}}>
+          <div className="reminder-row">
             <label>
               Giorno
-              <select value={day} onChange={e => setDay(e.target.value)} style={{ maxWidth: '100%'}}>
+              <select value={day} onChange={e => setDay(e.target.value)}>
                 <option value="1">Lunedì</option>
                 <option value="2">Martedì</option>
                 <option value="3">Mercoledì</option>
@@ -119,7 +119,7 @@ export default function Profile() {
                 <option value="0">Domenica</option>
               </select>
             </label>
-            <label>Ora<input type="time" style={{ maxWidth: '100%'}} value={time} onChange={e => setTime(e.target.value)} /></label>
+            <label>Ora<input type="time" value={time} onChange={e => setTime(e.target.value)} /></label>
           </div>}
       </section>
 
