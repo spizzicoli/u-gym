@@ -67,14 +67,14 @@ export default function Profile() {
       <div className="profile-head"><div><span className="profile-kicker">ACCOUNT</span><h1>Profilo</h1></div><div className="profile-avatar">{(user?.username || 'A').charAt(0).toUpperCase()}</div></div>
 
       <section className="settings-card">
-        <div className="settings-title"><PersonRoundedIcon/><div><strong>Il tuo profilo</strong><small>Le informazioni che usi nell'app</small></div></div>
+        <div className="settings-title"><PersonRoundedIcon /><div><strong>Il tuo profilo</strong><small>Le informazioni che usi nell'app</small></div></div>
         <label>Username<input value={username} maxLength={24} onChange={e => setUsername(e.target.value)} /></label>
         <label>Email<input value={user?.email || ''} disabled /></label>
         <div className="setting-static"><span>Palestra</span><strong>{selectedGym?.name || 'Nessuna'}</strong></div>
       </section>
 
       <section className="settings-card">
-        <div className="settings-title"><MonitorWeightRoundedIcon/><div><strong>Dati personali</strong><small>Per monitorare i tuoi progressi</small></div></div>
+        <div className="settings-title"><MonitorWeightRoundedIcon /><div><strong>Dati personali</strong><small>Per monitorare i tuoi progressi</small></div></div>
         <div className="profile-fields-grid">
           <label>Peso (kg)<input type="number" min="20" max="400" step="0.1" value={weight} onChange={e => setWeight(e.target.value)} placeholder="es. 75" /></label>
           <label>Altezza (cm)<input type="number" min="100" max="250" value={height} onChange={e => setHeight(e.target.value)} placeholder="es. 178" /></label>
@@ -85,7 +85,7 @@ export default function Profile() {
       </section>
 
       <section className="settings-card">
-        <div className="settings-title"><PaletteRoundedIcon/><div><strong>Aspetto</strong><small>La scelta si applica subito a tutte le pagine</small></div></div>
+        <div className="settings-title"><PaletteRoundedIcon /><div><strong>Aspetto</strong><small>La scelta si applica subito a tutte le pagine</small></div></div>
         <div className="theme-grid">
           {Object.entries(THEMES).map(([key, item]) => (
             <button key={key} type="button" className={`theme-choice ${theme === key ? 'active' : ''}`} data-theme-key={key} onClick={() => chooseTheme(key)}>
@@ -96,15 +96,36 @@ export default function Profile() {
       </section>
 
       <section className="settings-card">
-        <div className="settings-title"><NotificationsActiveRoundedIcon/><div><strong>Allenamento</strong><small>Imposta il tuo ritmo settimanale</small></div></div>
-        <label>Obiettivo settimanale<select value={goal} onChange={e => setGoal(e.target.value)}>{[1,2,3,4,5,6,7].map(n => <option key={n} value={n}>{n} {n === 1 ? 'allenamento' : 'allenamenti'} / settimana</option>)}</select></label>
-        <label className="switch-row"><span><strong>Promemoria allenamento</strong><small>Ricordami una volta a settimana</small></span><input type="checkbox" checked={reminders} onChange={e => setReminders(e.target.checked)} /></label>
-        {reminders && <div className="reminder-row"><label>Giorno<select value={day} onChange={e => setDay(e.target.value)}><option value="1">Lunedì</option><option value="2">Martedì</option><option value="3">Mercoledì</option><option value="4">Giovedì</option><option value="5">Venerdì</option><option value="6">Sabato</option><option value="0">Domenica</option></select></label><label>Ora<input type="time" value={time} onChange={e => setTime(e.target.value)} /></label></div>}
+        <div className="settings-title"><NotificationsActiveRoundedIcon /><div><strong>Allenamento</strong><small>Imposta il tuo ritmo settimanale</small></div></div>
+        <label>Obiettivo settimanale<select value={goal} onChange={e => setGoal(e.target.value)}>{[1, 2, 3, 4, 5, 6, 7].map(n => <option key={n} value={n}>{n} {n === 1 ? 'allenamento' : 'allenamenti'} / settimana</option>)}</select></label>
+        <label className="switch-row">
+          <span>
+            <strong>Promemoria allenamento</strong>
+            <small>Ricordami una volta a settimana</small>
+          </span>
+          <input type="checkbox" checked={reminders} onChange={e => setReminders(e.target.checked)} />
+        </label>
+        {reminders &&
+          <div className="reminder-row" style={{ maxWidth: '100%'}}>
+            <label>
+              Giorno
+              <select value={day} onChange={e => setDay(e.target.value)} style={{ maxWidth: '100%'}}>
+                <option value="1">Lunedì</option>
+                <option value="2">Martedì</option>
+                <option value="3">Mercoledì</option>
+                <option value="4">Giovedì</option>
+                <option value="5">Venerdì</option>
+                <option value="6">Sabato</option>
+                <option value="0">Domenica</option>
+              </select>
+            </label>
+            <label>Ora<input type="time" style={{ maxWidth: '100%'}} value={time} onChange={e => setTime(e.target.value)} /></label>
+          </div>}
       </section>
 
       {error && <div className="profile-error">{error}</div>}
       {saved && <div className="profile-saved">✓ Impostazioni salvate</div>}
-      <button className="profile-save" onClick={save}><SaveRoundedIcon/> Salva modifiche</button>
+      <button className="profile-save" onClick={save}><SaveRoundedIcon /> Salva modifiche</button>
       <button className="profile-page__logout" onClick={logout}>Esci dall'account</button>
     </div>
   );

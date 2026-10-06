@@ -25,6 +25,16 @@ const DEFAULT_DURATION_MINUTES = 20;
 const MIN_DURATION_MINUTES = 1;
 const MAX_DURATION_MINUTES = 180;
 
+function toLocalDateTime(date) {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+}
+
+function defaultReminderDateTime() {
+  const date = new Date();
+  date.setHours(date.getHours() + 1, date.getMinutes(), 0, 0);
+  return toLocalDateTime(date);
+}
+
 function weekKey(date = new Date()) {
   const d = new Date(date);
   const day = (d.getDay() + 6) % 7;
@@ -68,7 +78,7 @@ export default function HomeWorkout() {
   const [seconds, setSeconds] = useState(DEFAULT_DURATION_MINUTES * 60);
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState(loadHistory);
-  const [reminderAt, setReminderAt] = useState('');
+  const [reminderAt, setReminderAt] = useState(defaultReminderDateTime);
   const [reminderMsg, setReminderMsg] = useState('');
   const [loadingExercises, setLoadingExercises] = useState(true);
   const [exerciseError, setExerciseError] = useState('');
@@ -274,7 +284,7 @@ export default function HomeWorkout() {
 
       <section className="home-reminder">
         <div className="home-reminder__title"><NotificationsActiveRoundedIcon /><div><strong>Promemoria</strong><small>Ricevi un avviso quando vuoi allenarti</small></div></div>
-        <input type="datetime-local" value={reminderAt} min={new Date(Date.now() + 60000).toISOString().slice(0, 16)} onChange={event => setReminderAt(event.target.value)} />
+        <input type="datetime-local" value={reminderAt} min={toLocalDateTime(new Date(Date.now() + 60000))} onChange={event => setReminderAt(event.target.value)} />
         <button onClick={schedule} disabled={!reminderAt}>Programma notifica</button>
         {reminderMsg && <small className="reminder-msg">{reminderMsg}</small>}
       </section>
