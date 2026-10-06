@@ -54,6 +54,11 @@ export default function EventDetail() {
   return (
     <div className="page-container event-detail">
       <button className="detail-back" onClick={() => navigate(-1)}><ArrowBackIcon fontSize="small" /> Eventi</button>
+      {event.image_url && (
+        <figure className="event-detail__image">
+          <img src={event.image_url} alt={`Immagine dell'evento ${event.title}`} />
+        </figure>
+      )}
       <p className="event-detail__tag">Evento</p>
       <h1 className="event-detail__title">{event.title}</h1>
       {event.date && <p className="event-detail__meta">📅 {new Date(event.date).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</p>}

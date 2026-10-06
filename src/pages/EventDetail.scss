@@ -1,6 +1,19 @@
 .event-detail {
   padding: 1.2rem;
 
+  &__image {
+    margin: 0 0 1rem;
+    overflow: hidden;
+    border-radius: 16px;
+
+    img {
+      display: block;
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+    }
+  }
+
   &__tag {
     display: inline-block;
     background: #ff7c4d;

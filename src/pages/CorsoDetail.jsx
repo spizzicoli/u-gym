@@ -111,6 +111,11 @@ export default function CorsoDetail() {
 
       {step === 'detail' && (
         <>
+          {corso.image_url && (
+            <figure className="corso-detail__image">
+              <img src={corso.image_url} alt={`Immagine del corso ${corso.name}`} />
+            </figure>
+          )}
           <div className="detail-header">
             <span
               className="detail-tag"
